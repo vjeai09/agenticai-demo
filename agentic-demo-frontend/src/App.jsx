@@ -3,12 +3,13 @@ import { motion } from 'framer-motion'
 import APIDemo from './components/APIDemo'
 import RAGDemo from './components/RAGDemo'
 import MCPDemo from './components/MCPDemo'
+import AgenticJourney from './components/AgenticJourney'
 import Navigation from './components/Navigation'
 import BackgroundParticles from './components/BackgroundParticles'
 import { Brain, Zap } from 'lucide-react'
 
 function App() {
-  const [activeTab, setActiveTab] = useState('api')
+  const [activeTab, setActiveTab] = useState('journey')
 
   return (
     <div className="min-h-screen relative overflow-hidden">
@@ -76,6 +77,7 @@ function App() {
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.3 }}
         >
+          {activeTab === 'journey' && <AgenticJourney setActiveTab={setActiveTab} />}
           {activeTab === 'api' && <APIDemo />}
           {activeTab === 'rag' && <RAGDemo />}
           {activeTab === 'mcp' && <MCPDemo />}

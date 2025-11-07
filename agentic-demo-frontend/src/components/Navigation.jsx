@@ -1,7 +1,14 @@
 import { motion } from 'framer-motion'
-import { Cloud, Database, Sparkles } from 'lucide-react'
+import { Cloud, Database, Sparkles, BookOpen } from 'lucide-react'
 
 const tabs = [
+  { 
+    id: 'journey', 
+    label: 'Learning Journey', 
+    icon: BookOpen, 
+    color: 'from-indigo-500 to-purple-500',
+    description: 'Interactive tutorial & progression'
+  },
   { 
     id: 'api', 
     label: 'API Integration', 
@@ -27,9 +34,9 @@ const tabs = [
 
 export default function Navigation({ activeTab, setActiveTab }) {
   return (
-    <nav className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+    <nav className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
       <div className="glass-card p-2">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
           {tabs.map((tab) => {
             const Icon = tab.icon
             const isActive = activeTab === tab.id

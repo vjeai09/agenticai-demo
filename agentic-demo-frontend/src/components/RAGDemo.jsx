@@ -137,7 +137,7 @@ export default function RAGDemo({ setActiveTab }) {
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-4 shadow-xl">
         <div className="flex items-center justify-between">
-          <button onClick={() => setActiveTab('api')} className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shadow-lg">
+          <button onClick={() => setActiveTab('journey')} className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shadow-lg">
             <Home className="w-5 h-5 text-white" />
           </button>
           <div className="flex-1 mx-3">
@@ -154,6 +154,11 @@ export default function RAGDemo({ setActiveTab }) {
       </div>
 
       <div className="hidden md:block max-w-6xl mx-auto pt-8 mb-8">
+        <div className="flex items-center justify-between mb-4">
+          <button onClick={() => setActiveTab('journey')} className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-xl font-semibold text-white flex items-center gap-2 transition-all">
+            <Home className="w-5 h-5" />Back to Journey
+          </button>
+        </div>
         <h1 className="text-4xl lg:text-5xl font-bold text-white mb-2 text-center">RAG System Demo</h1>
         <p className="text-purple-200 text-center text-lg">Interactive Retrieval-Augmented Generation</p>
       </div>

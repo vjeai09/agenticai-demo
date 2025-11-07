@@ -338,6 +338,15 @@ export default function MCPDemo({ setActiveTab }) {
 
   return (
     <div className="space-y-8">
+      {/* Floating Home Button */}
+      <button
+        onClick={() => setActiveTab('journey')}
+        className="fixed top-4 right-4 z-50 w-12 h-12 rounded-full bg-gradient-to-r from-orange-500 to-red-500 shadow-lg flex items-center justify-center hover:scale-110 transition-transform active:scale-95"
+        title="Back to Journey"
+      >
+        <Home className="w-6 h-6 text-white" />
+      </button>
+
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}

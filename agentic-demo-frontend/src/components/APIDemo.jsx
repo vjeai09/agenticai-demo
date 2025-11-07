@@ -561,7 +561,7 @@ export default function APIDemo({ setActiveTab }) {
       <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-4 shadow-xl">
         <div className="flex items-center justify-between">
           <button
-            onClick={() => setActiveTab('api')}
+            onClick={() => setActiveTab('journey')}
             className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shadow-lg active:scale-95 transition-transform"
           >
             <Home className="w-5 h-5 text-white" />
@@ -587,6 +587,15 @@ export default function APIDemo({ setActiveTab }) {
 
       {/* Desktop Header */}
       <div className="hidden md:block max-w-6xl mx-auto pt-8 mb-8">
+        <div className="flex items-center justify-between mb-4">
+          <button
+            onClick={() => setActiveTab('journey')}
+            className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-xl font-semibold text-white flex items-center gap-2 transition-all"
+          >
+            <Home className="w-5 h-5" />
+            Back to Journey
+          </button>
+        </div>
         <h1 className="text-4xl lg:text-5xl font-bold text-white mb-2 text-center">
           API Integration Demos
         </h1>

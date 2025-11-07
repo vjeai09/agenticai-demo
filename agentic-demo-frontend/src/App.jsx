@@ -13,9 +13,14 @@ function App() {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
-      {/* Full-screen Journey on mobile, normal layout on desktop */}
-      {activeTab === 'journey' ? (
-        <AgenticJourney setActiveTab={setActiveTab} />
+      {/* Full-screen demos on mobile for journey-style components */}
+      {activeTab === 'journey' || activeTab === 'api' || activeTab === 'rag' || activeTab === 'mcp' ? (
+        <>
+          {activeTab === 'journey' && <AgenticJourney setActiveTab={setActiveTab} />}
+          {activeTab === 'api' && <APIDemo setActiveTab={setActiveTab} />}
+          {activeTab === 'rag' && <RAGDemo setActiveTab={setActiveTab} />}
+          {activeTab === 'mcp' && <MCPDemo setActiveTab={setActiveTab} />}
+        </>
       ) : (
         <>
           <BackgroundParticles />
@@ -82,9 +87,7 @@ function App() {
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
             >
-              {activeTab === 'api' && <APIDemo setActiveTab={setActiveTab} />}
-              {activeTab === 'rag' && <RAGDemo setActiveTab={setActiveTab} />}
-              {activeTab === 'mcp' && <MCPDemo setActiveTab={setActiveTab} />}
+              {/* No demos here now - all rendered full-screen above */}
             </motion.div>
           </main>
         </>

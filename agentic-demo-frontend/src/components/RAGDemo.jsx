@@ -122,6 +122,41 @@ export default function RAGDemo({ setActiveTab }) {
               </div>
             ))}
 
+            {result.type === 'embeddings' && result.data.map(emb => (
+              <div key={emb.id} className="p-3 bg-purple-50 rounded-xl border border-purple-200 mb-2">
+                <p className="text-purple-700 font-bold text-xs mb-1">{emb.title}</p>
+                <p className="text-gray-600 text-xs font-mono">{emb.embedding}</p>
+              </div>
+            ))}
+
+            {result.type === 'storage' && (
+              <div className="p-4 bg-green-50 rounded-xl border border-green-200">
+                <div className="grid grid-cols-2 gap-2 text-xs">
+                  <div><span className="text-gray-600">Database:</span> <span className="text-green-700 font-bold">{result.data.database}</span></div>
+                  <div><span className="text-gray-600">Stored:</span> <span className="text-green-700 font-bold">{result.data.stored} vectors</span></div>
+                </div>
+              </div>
+            )}
+
+            {result.type === 'query' && (
+              <div className="p-4 bg-orange-50 rounded-xl border border-orange-200">
+                <p className="text-orange-800 font-semibold text-sm mb-1">"{result.data.original}"</p>
+                <p className="text-gray-600 text-xs">Query converted to embedding for semantic search</p>
+              </div>
+            )}
+
+            {result.type === 'search' && result.data.map(doc => (
+              <div key={doc.id} className="p-4 bg-yellow-50 rounded-xl border border-yellow-200 mb-3">
+                <div className="flex justify-between items-start mb-2">
+                  <p className="text-yellow-800 font-bold text-sm">{doc.title}</p>
+                  <span className="text-xs px-2 py-1 bg-yellow-200 text-yellow-900 rounded-full font-bold">
+                    {(doc.similarity * 100).toFixed(0)}% match
+                  </span>
+                </div>
+                <p className="text-gray-700 text-xs">{doc.content}</p>
+              </div>
+            ))}
+
             {result.type === 'response' && (
               <div className="p-5 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl border-2 border-indigo-300">
                 <p className="text-gray-900 text-sm leading-relaxed whitespace-pre-line">{result.data.answer}</p>

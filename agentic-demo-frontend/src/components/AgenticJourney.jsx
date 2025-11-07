@@ -440,7 +440,7 @@ AI synthesizes everything:
           { step: "Iterative Execution", desc: "Agents collaborate, learn, adapt over days/weeks" },
           { step: "Memory & Learning", desc: "Remember preferences, past trips, user feedback" },
           { step: "Goal Achievement", desc: "Complete trip planned, booked, and managed" }
-        },
+        ],
         example: {
           title: "Level 5: Full Agentic Travel System",
           code: `// Multi-Agent Agentic System

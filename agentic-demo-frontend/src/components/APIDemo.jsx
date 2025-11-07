@@ -10,11 +10,11 @@ export default function APIDemo() {
   const [results, setResults] = useState({})
   const [errors, setErrors] = useState({})
   const [inputs, setInputs] = useState({
-    city: 'Hyderabad',
-    newsQuery: 'technology',
+    city: 'Tokyo',
+    newsQuery: 'Tokyo travel December',
     fromCurrency: 'USD',
-    toCurrency: 'INR',
-    amount: '100'
+    toCurrency: 'JPY',
+    amount: '2000'
   })
 
   const handleInputChange = (field, value) => {
@@ -82,10 +82,10 @@ export default function APIDemo() {
         <Cloud className="w-16 h-16 mx-auto mb-4 text-blue-400" />
         <h2 className="text-3xl font-bold mb-3 gradient-text">API Integration Demo</h2>
         <p className="text-gray-300 text-lg max-w-3xl mx-auto">
-          This demonstrates how AI agents can interact with external APIs to fetch real-time data. 
-          We're integrating <span className="text-blue-400 font-semibold">Weather</span>, 
+          Experience how AI agents interact with external APIs to plan your Tokyo trip! 
+          We're using <span className="text-blue-400 font-semibold">Weather</span>, 
           <span className="text-purple-400 font-semibold"> News</span>, and 
-          <span className="text-green-400 font-semibold"> Currency Exchange</span> APIs.
+          <span className="text-green-400 font-semibold"> Currency Exchange</span> APIs to gather travel information.
         </p>
       </motion.div>
 
@@ -176,7 +176,7 @@ export default function APIDemo() {
                 type="text"
                 value={inputs.toCurrency}
                 onChange={(e) => handleInputChange('toCurrency', e.target.value.toUpperCase())}
-                placeholder="To (INR)"
+                placeholder="To (JPY)"
                 className="px-3 py-2 bg-white/5 border border-white/10 rounded-lg 
                          focus:outline-none focus:ring-2 focus:ring-green-500"
               />

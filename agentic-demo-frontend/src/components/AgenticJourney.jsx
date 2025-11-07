@@ -26,6 +26,11 @@ const AgenticJourney = ({ setActiveTab }) => {
   // Minimum swipe distance (in px)
   const minSwipeDistance = 50;
 
+  // Scroll to top when slide changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentSlide]);
+
   const slides = [
     {
       level: "Welcome",

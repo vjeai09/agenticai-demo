@@ -1,0 +1,11 @@
+{
+  "buildCommand": "cd agentic-demo-frontend && npm install && npm run build",
+  "outputDirectory": "agentic-demo-frontend/dist",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

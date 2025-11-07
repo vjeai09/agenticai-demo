@@ -1,0 +1,8 @@
+node_modules
+.git
+agentic-backend
+frontend-app
+*.pyc
+__pycache__
+.env
+.DS_Store

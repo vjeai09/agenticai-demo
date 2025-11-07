@@ -1,9 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Cloud, Newspaper, DollarSign, Zap, Loader2, CheckCircle2, XCircle, Play } from 'lucide-react'
-import axios from 'axios'
-
-const API_BASE = '/api'
 
 export default function APIDemo() {
   const [loading, setLoading] = useState({})
@@ -21,34 +18,88 @@ export default function APIDemo() {
     setInputs({ ...inputs, [field]: value })
   }
 
-  const makeAPICall = async (endpoint, params = {}, resultKey) => {
+  // Simulated API responses for demo purposes
+  const simulateAPICall = async (resultKey, mockData) => {
     setLoading({ ...loading, [resultKey]: true })
     setErrors({ ...errors, [resultKey]: null })
     
+    // Simulate network delay
+    await new Promise(resolve => setTimeout(resolve, 800))
+    
     try {
-      const response = await axios.get(`${API_BASE}${endpoint}`, { params })
-      setResults({ ...results, [resultKey]: response.data })
+      setResults({ ...results, [resultKey]: mockData })
     } catch (error) {
-      setErrors({ ...errors, [resultKey]: error.response?.data?.detail || error.message })
+      setErrors({ ...errors, [resultKey]: error.message })
     } finally {
       setLoading({ ...loading, [resultKey]: false })
     }
   }
 
   const fetchWeather = () => {
-    makeAPICall(`/weather/${inputs.city}`, {}, 'weather')
+    const mockData = {
+      city: inputs.city,
+      temperature: inputs.city.toLowerCase() === 'tokyo' ? '8-12°C' : '15-20°C',
+      condition: 'Partly Cloudy',
+      humidity: '65%',
+      wind: '12 km/h',
+      description: inputs.city.toLowerCase() === 'tokyo' 
+        ? 'Cold and dry December weather. Perfect for sightseeing but pack warm layers.'
+        : 'Pleasant weather conditions expected.'
+    }
+    simulateAPICall('weather', mockData)
   }
 
   const fetchNews = () => {
-    makeAPICall('/news', { query: inputs.newsQuery, page_size: 5 }, 'news')
+    const mockData = {
+      articles: [
+        {
+          title: 'Tokyo Opens New Family-Friendly Museums in 2025',
+          source: 'Travel News',
+          published: '2 days ago',
+          description: 'Several interactive museums opened in Odaiba and Shibuya districts, perfect for families with children.'
+        },
+        {
+          title: 'Best Time to Visit Tokyo: December Travel Guide',
+          source: 'Japan Tourism',
+          published: '1 week ago',
+          description: 'December offers unique winter illuminations and fewer crowds at major attractions.'
+        },
+        {
+          title: 'Tokyo Metro Announces Extended Hours for Holiday Season',
+          source: 'Transportation Weekly',
+          published: '3 days ago',
+          description: 'JR lines will operate until 1 AM during the holiday season to accommodate travelers.'
+        },
+        {
+          title: 'Top 10 Family Activities in Tokyo Winter 2025',
+          source: 'Family Travel',
+          published: '5 days ago',
+          description: 'From teamLab Borderless to Tokyo Disneyland, discover the best activities for kids.'
+        },
+        {
+          title: 'Tokyo Hotel Prices Drop 15% in Early December',
+          source: 'Hotel Insider',
+          published: '1 day ago',
+          description: 'Great deals on family-friendly accommodations before the peak Christmas season.'
+        }
+      ]
+    }
+    simulateAPICall('news', mockData)
   }
 
   const fetchExchange = () => {
-    makeAPICall('/exchange', {
-      from_currency: inputs.fromCurrency,
-      to_currency: inputs.toCurrency,
-      amount: inputs.amount
-    }, 'exchange')
+    const rate = inputs.fromCurrency === 'USD' && inputs.toCurrency === 'JPY' ? 149.5 : 1.0
+    const convertedAmount = (parseFloat(inputs.amount) * rate).toFixed(2)
+    
+    const mockData = {
+      from: inputs.fromCurrency,
+      to: inputs.toCurrency,
+      rate: rate,
+      original_amount: inputs.amount,
+      converted_amount: convertedAmount,
+      timestamp: new Date().toISOString()
+    }
+    simulateAPICall('exchange', mockData)
   }
 
   const runParallelDemo = async () => {

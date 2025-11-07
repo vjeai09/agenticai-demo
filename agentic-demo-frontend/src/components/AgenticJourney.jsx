@@ -13,7 +13,8 @@ import {
   Database,
   Cpu,
   GitBranch,
-  Users
+  Users,
+  Play
 } from 'lucide-react';
 
 const AgenticJourney = ({ setActiveTab }) => {
@@ -780,110 +781,201 @@ Memory stored for future trips:
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-3 sm:p-4 md:p-8">
-      {/* Header */}
-      <div className="max-w-6xl mx-auto mb-4 sm:mb-6 md:mb-8">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 text-center">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 md:p-8">
+      {/* Mobile App-like Header (Fixed) */}
+      <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-4 shadow-xl">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-lg font-bold text-white">Agentic AI Journey</h1>
+            <p className="text-xs text-purple-100">Level {currentSlide + 1} of {totalSlides}</p>
+          </div>
+          <div className={`w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center shadow-lg`}>
+            <currentSlideData.icon className="w-7 h-7 text-white" />
+          </div>
+        </div>
+        
+        {/* Progress Bar */}
+        <div className="mt-3 w-full h-1.5 bg-white/20 rounded-full overflow-hidden">
+          <motion.div 
+            className="h-full bg-white rounded-full"
+            initial={{ width: 0 }}
+            animate={{ width: `${((currentSlide + 1) / totalSlides) * 100}%` }}
+            transition={{ duration: 0.3 }}
+          />
+        </div>
+      </div>
+
+      {/* Desktop Header */}
+      <div className="hidden md:block max-w-6xl mx-auto mb-8">
+        <h1 className="text-4xl lg:text-5xl font-bold text-white mb-2 text-center">
           The Agentic AI Journey
         </h1>
-        <p className="text-purple-200 text-center text-sm sm:text-base md:text-lg">
+        <p className="text-purple-200 text-center text-lg">
           Interactive Learning Experience
-        </p>
-        {/* Mobile swipe hint */}
-        <p className="text-purple-300/60 text-center text-xs sm:text-sm mt-2 md:hidden">
-          👈 Swipe to navigate 👉
         </p>
       </div>
 
-      {/* Main Slide Area */}
-      <div className="max-w-6xl mx-auto">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentSlide}
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -100 }}
-            transition={{ duration: 0.3 }}
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
-            onTouchEnd={onTouchEnd}
-            className="bg-white/10 backdrop-blur-lg rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 lg:p-12 border border-white/20 shadow-2xl touch-pan-y select-none"
-          >
-            {/* Slide Header */}
-            <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6 md:mb-8">
-              <div className={`p-2 sm:p-3 md:p-4 rounded-xl sm:rounded-2xl bg-gradient-to-r ${currentSlideData.color} flex-shrink-0`}>
-                <currentSlideData.icon className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white" />
-              </div>
-              <div className="min-w-0">
-                <div className="text-xs sm:text-sm font-semibold text-purple-300">
+      {/* Main Slide Area - Mobile App Style */}
+      <div className="md:max-w-6xl md:mx-auto">
+        <div className="md:hidden pt-24 pb-24 px-0">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentSlide}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -100 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={onTouchEnd}
+              className="bg-white min-h-[calc(100vh-12rem)] rounded-t-[2rem] shadow-2xl touch-pan-y select-none overflow-hidden"
+            >
+              {/* Mobile Slide Header */}
+              <div className={`bg-gradient-to-r ${currentSlideData.color} px-5 py-6 rounded-t-[2rem]`}>
+                <div className="text-xs font-bold text-white/80 uppercase tracking-wider mb-1">
                   {currentSlideData.level}
                 </div>
-                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white truncate">
+                <h2 className="text-2xl font-bold text-white mb-1">
                   {currentSlideData.title}
                 </h2>
-                <p className="text-purple-200 text-sm sm:text-base md:text-lg">
+                <p className="text-white/90 text-sm">
                   {currentSlideData.subtitle}
                 </p>
               </div>
+
+              {/* Mobile Slide Content */}
+              <div className="px-5 py-6 bg-white text-gray-900 overflow-y-auto max-h-[calc(100vh-20rem)]">
+                <SlideContent content={currentSlideData.content} color={currentSlideData.color} setActiveTab={setActiveTab} mobile={true} />
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Desktop View (unchanged) */}
+        <div className="hidden md:block">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentSlide}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -100 }}
+              transition={{ duration: 0.3 }}
+              className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 lg:p-12 border border-white/20 shadow-2xl"
+            >
+              {/* Desktop Slide Header */}
+              <div className="flex items-center gap-4 mb-8">
+                <div className={`p-4 rounded-2xl bg-gradient-to-r ${currentSlideData.color} flex-shrink-0`}>
+                  <currentSlideData.icon className="w-8 h-8 text-white" />
+                </div>
+                <div className="min-w-0">
+                  <div className="text-sm font-semibold text-purple-300">
+                    {currentSlideData.level}
+                  </div>
+                  <h2 className="text-3xl font-bold text-white">
+                    {currentSlideData.title}
+                  </h2>
+                  <p className="text-purple-200 text-lg">
+                    {currentSlideData.subtitle}
+                  </p>
+                </div>
+              </div>
+
+              {/* Desktop Slide Content */}
+              <SlideContent content={currentSlideData.content} color={currentSlideData.color} setActiveTab={setActiveTab} mobile={false} />
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Desktop Navigation */}
+          <div className="mt-8 flex items-center justify-between gap-4">
+            <button
+              onClick={prevSlide}
+              disabled={currentSlide === 0}
+              className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all ${
+                currentSlide === 0
+                  ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
+                  : 'bg-white/20 text-white hover:bg-white/30 active:scale-95'
+              }`}
+            >
+              <ChevronLeft className="w-5 h-5" />
+              Previous
+            </button>
+
+            <div className="flex gap-2">
+              {slides.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  aria-label={`Go to slide ${index + 1}`}
+                  className={`transition-all rounded-full ${
+                    index === currentSlide
+                      ? 'w-8 h-3 bg-purple-400'
+                      : 'w-3 h-3 bg-white/30 hover:bg-white/50'
+                  }`}
+                />
+              ))}
             </div>
 
-            {/* Slide Content */}
-            <SlideContent content={currentSlideData.content} color={currentSlideData.color} setActiveTab={setActiveTab} />
-          </motion.div>
-        </AnimatePresence>
+            <button
+              onClick={nextSlide}
+              disabled={currentSlide === totalSlides - 1}
+              className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all ${
+                currentSlide === totalSlides - 1
+                  ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
+                  : 'bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:from-purple-600 hover:to-pink-600 active:scale-95'
+              }`}
+            >
+              Next
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
 
-        {/* Navigation */}
-        <div className="mt-4 sm:mt-6 md:mt-8 flex items-center justify-between gap-2 sm:gap-4">
-          {/* Previous Button */}
+          <div className="text-center mt-4 text-purple-200">
+            Slide {currentSlide + 1} of {totalSlides}
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Bottom Navigation */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-4 shadow-2xl z-50">
+        <div className="flex items-center justify-between gap-3">
           <button
             onClick={prevSlide}
             disabled={currentSlide === 0}
-            className={`flex items-center gap-1 sm:gap-2 px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-lg sm:rounded-xl font-semibold transition-all text-sm sm:text-base min-w-[80px] sm:min-w-[100px] justify-center ${
+            className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-2xl font-bold transition-all ${
               currentSlide === 0
-                ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
-                : 'bg-white/20 text-white hover:bg-white/30 active:scale-95'
+                ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                : 'bg-gradient-to-r from-gray-700 to-gray-800 text-white active:scale-95 shadow-lg'
             }`}
           >
-            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-            <span className="hidden sm:inline">Previous</span>
-            <span className="sm:hidden">Prev</span>
+            <ChevronLeft className="w-5 h-5" />
+            Back
           </button>
 
-          {/* Progress Dots */}
-          <div className="flex gap-1.5 sm:gap-2">
+          <div className="flex gap-1.5">
             {slides.map((_, index) => (
-              <button
+              <div
                 key={index}
-                onClick={() => goToSlide(index)}
-                aria-label={`Go to slide ${index + 1}`}
                 className={`transition-all rounded-full ${
                   index === currentSlide
-                    ? 'w-6 sm:w-8 h-2.5 sm:h-3 bg-purple-400'
-                    : 'w-2.5 sm:w-3 h-2.5 sm:h-3 bg-white/30 hover:bg-white/50 active:bg-white/60'
+                    ? 'w-7 h-2 bg-gradient-to-r from-purple-500 to-pink-500'
+                    : 'w-2 h-2 bg-gray-300'
                 }`}
               />
             ))}
           </div>
 
-          {/* Next Button */}
           <button
             onClick={nextSlide}
             disabled={currentSlide === totalSlides - 1}
-            className={`flex items-center gap-1 sm:gap-2 px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-lg sm:rounded-xl font-semibold transition-all text-sm sm:text-base min-w-[80px] sm:min-w-[100px] justify-center ${
+            className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-2xl font-bold transition-all ${
               currentSlide === totalSlides - 1
-                ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
-                : 'bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:from-purple-600 hover:to-pink-600 active:scale-95'
+                ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                : 'bg-gradient-to-r from-purple-500 to-pink-500 text-white active:scale-95 shadow-lg'
             }`}
           >
-            <span className="hidden sm:inline">Next</span>
-            <span className="sm:hidden">Next</span>
-            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+            Next
+            <ChevronRight className="w-5 h-5" />
           </button>
-        </div>
-
-        {/* Slide Counter */}
-        <div className="text-center mt-3 sm:mt-4 text-purple-200 text-sm sm:text-base">
-          Slide {currentSlide + 1} of {totalSlides}
         </div>
       </div>
     </div>
@@ -891,25 +983,38 @@ Memory stored for future trips:
 };
 
 // Slide Content Component
-const SlideContent = ({ content, color, setActiveTab }) => {
+const SlideContent = ({ content, color, setActiveTab, mobile = false }) => {
+  const mobileStyles = mobile ? {
+    text: "text-gray-800",
+    heading: "text-gray-900",
+    card: "bg-gradient-to-br from-gray-50 to-white border border-gray-200 shadow-sm",
+    highlight: "bg-gradient-to-r from-purple-50 to-pink-50 border-purple-200",
+    code: "bg-gray-900 text-green-400 border-gray-800"
+  } : {
+    text: "text-white/90",
+    heading: "text-white",
+    card: "bg-white/5 border-white/10",
+    highlight: "bg-gradient-to-r from-orange-500/10 to-pink-500/10 border-orange-400/20",
+    code: "bg-slate-950/50 text-green-400 border-white/10"
+  };
+
   if (content.type === 'intro') {
     return (
       <div className="space-y-4 sm:space-y-6">
-        <p className="text-base sm:text-lg md:text-xl text-white/90 leading-relaxed">
+        <p className={`text-base leading-relaxed ${mobile ? 'text-gray-700' : 'text-white/90 md:text-lg'}`}>
           {content.description}
         </p>
         
-        {/* Use Case Highlight */}
         {content.useCase && (
-          <div className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 p-4 sm:p-5 md:p-6 rounded-xl border border-blue-400/30 mt-4 sm:mt-6">
-            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2 flex items-center gap-2">
+          <div className={`${mobileStyles.highlight} p-4 md:p-6 rounded-2xl border ${mobile ? 'shadow-md' : ''}`}>
+            <h3 className={`text-lg md:text-xl font-bold ${mobileStyles.heading} mb-2 flex items-center gap-2`}>
               {content.useCase.title}
             </h3>
-            <p className="text-white/80 text-sm sm:text-base md:text-lg mb-3">
+            <p className={`${mobile ? 'text-gray-600' : 'text-white/80'} text-sm md:text-base mb-3`}>
               {content.useCase.description}
             </p>
-            <div className="bg-white/10 p-3 sm:p-4 rounded-lg border border-white/20">
-              <p className="text-yellow-300 font-semibold text-sm sm:text-base">
+            <div className={`${mobile ? 'bg-white' : 'bg-white/10'} p-3 md:p-4 rounded-xl border ${mobile ? 'border-gray-200 shadow-sm' : 'border-white/20'}`}>
+              <p className={`${mobile ? 'text-purple-700' : 'text-yellow-300'} font-semibold text-sm md:text-base`}>
                 {content.useCase.scenario}
               </p>
             </div>
@@ -923,10 +1028,10 @@ const SlideContent = ({ content, color, setActiveTab }) => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="flex items-start gap-2 sm:gap-3 bg-white/5 p-3 sm:p-4 rounded-xl border border-white/10"
+              className={`flex items-start gap-2 sm:gap-3 ${mobileStyles.card} p-3 sm:p-4 rounded-xl ${mobile ? 'shadow-sm' : ''}`}
             >
               <div className={`mt-1 w-2 h-2 flex-shrink-0 rounded-full bg-gradient-to-r ${color}`} />
-              <span className="text-white/80 text-sm sm:text-base">{point}</span>
+              <span className={`${mobileStyles.text} text-sm sm:text-base`}>{point}</span>
             </motion.div>
           ))}
         </div>
@@ -936,90 +1041,85 @@ const SlideContent = ({ content, color, setActiveTab }) => {
 
   if (content.type === 'level') {
     return (
-      <div className="space-y-4 sm:space-y-6 md:space-y-8">
-        {/* Description */}
-        <p className="text-sm sm:text-base md:text-lg text-white/90 leading-relaxed">
+      <div className="space-y-4 md:space-y-6">
+        <p className={`text-sm md:text-base leading-relaxed ${mobileStyles.text}`}>
           {content.description}
         </p>
 
-        {/* Scenario Box */}
         {content.scenario && (
-          <div className="bg-gradient-to-r from-orange-500/10 to-pink-500/10 p-3 sm:p-4 md:p-5 rounded-xl border border-orange-400/20">
+          <div className={`${mobileStyles.highlight} p-3 md:p-4 rounded-2xl border ${mobile ? 'shadow-md' : ''}`}>
             <div className="space-y-2 sm:space-y-3">
               <div>
-                <span className="text-orange-300 font-semibold text-sm sm:text-base">👤 User: </span>
-                <span className="text-white/90 text-sm sm:text-base">"{content.scenario.user}"</span>
+                <span className={`${mobile ? 'text-orange-600' : 'text-orange-300'} font-semibold text-sm sm:text-base`}>👤 User: </span>
+                <span className={`${mobileStyles.text} text-sm sm:text-base`}>"{content.scenario.user}"</span>
               </div>
               <div>
-                <span className="text-pink-300 font-semibold text-sm sm:text-base">🤖 System: </span>
-                <span className="text-white/90 text-sm sm:text-base">{content.scenario.system}</span>
+                <span className={`${mobile ? 'text-pink-600' : 'text-pink-300'} font-semibold text-sm sm:text-base`}>🤖 System: </span>
+                <span className={`${mobileStyles.text} text-sm sm:text-base`}>{content.scenario.system}</span>
               </div>
             </div>
           </div>
         )}
 
-        {/* Architecture Flow */}
         <div>
-          <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-2">
+          <h3 className={`text-base md:text-lg font-bold ${mobileStyles.heading} mb-3 flex items-center gap-2`}>
             <Cpu className="w-4 h-4 sm:w-5 sm:h-5" />
             How It Works
           </h3>
-          <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-2 sm:gap-3">
+          <div className="space-y-2">
             {content.architecture.map((step, index) => (
-              <div key={index} className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
-                <div className="bg-white/10 backdrop-blur px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-white/20 flex-1 sm:flex-initial">
-                  <div className="font-semibold text-white text-xs sm:text-sm">{step.step}</div>
-                  <div className="text-xs text-purple-200 mt-0.5">{step.desc}</div>
+              <div key={index} className={`flex items-start gap-2 sm:gap-3 ${mobileStyles.card} px-3 py-2.5 rounded-xl border ${mobile ? 'shadow-sm' : ''}`}>
+                <div className={`flex-shrink-0 w-6 h-6 rounded-full bg-gradient-to-r ${color} flex items-center justify-center text-white text-xs font-bold`}>
+                  {index + 1}
                 </div>
-                {index < content.architecture.length - 1 && (
-                  <ArrowRight className="w-4 h-4 text-purple-300 hidden sm:block flex-shrink-0" />
-                )}
+                <div className="flex-1 min-w-0">
+                  <div className={`font-semibold ${mobileStyles.heading} text-xs sm:text-sm`}>{step.step}</div>
+                  <div className={`${mobile ? 'text-gray-600' : 'text-purple-200'} text-xs mt-0.5`}>{step.desc}</div>
+                </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Code Example */}
         <div>
-          <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-2">
+          <h3 className={`text-base md:text-lg font-bold ${mobileStyles.heading} mb-3 flex items-center gap-2`}>
             <Code className="w-4 h-4 sm:w-5 sm:h-5" />
-            {content.example.title}
+            {mobile ? 'Code Example' : content.example.title}
           </h3>
-          <div className="bg-slate-950/50 p-3 sm:p-4 md:p-6 rounded-xl overflow-x-auto border border-white/10">
-            <pre className="text-xs sm:text-sm">
-              <code className="text-green-400 font-mono leading-relaxed">
+          <div className={`${mobileStyles.code} p-3 md:p-4 rounded-xl overflow-x-auto border ${mobile ? 'shadow-md' : ''}`}>
+            <pre className="text-xs leading-relaxed">
+              <code className="font-mono">
                 {content.example.code}
               </code>
             </pre>
           </div>
         </div>
 
-        {/* Capabilities/Limitations */}
         <div>
-          <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-3 sm:mb-4">
-            {content.example.limitations ? 'Limitations' : 
-             content.example.improvements ? 'Improvements' : 'Capabilities'}
+          <h3 className={`text-base md:text-lg font-bold ${mobileStyles.heading} mb-3`}>
+            {content.example.limitations ? '⚠️ Limitations' : 
+             content.example.improvements ? '✨ Improvements' : '✅ Capabilities'}
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
+          <div className="space-y-2">
             {(content.example.limitations || content.example.improvements || content.example.capabilities || []).map((item, index) => (
               <div
                 key={index}
-                className="flex items-start gap-2 bg-white/5 p-2.5 sm:p-3 rounded-lg border border-white/10"
+                className={`flex items-start gap-2 ${mobileStyles.card} p-2.5 rounded-xl border ${mobile ? 'shadow-sm' : ''}`}
               >
-                <span className="text-white/90 text-xs sm:text-sm">{item}</span>
+                <span className={`${mobileStyles.text} text-xs sm:text-sm leading-relaxed`}>{item}</span>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Live Demo Button */}
         {content.liveDemo && (
           <div className="flex justify-center pt-2 sm:pt-4">
             <button
               onClick={() => setActiveTab(content.liveDemo)}
-              className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg sm:rounded-xl hover:from-purple-600 hover:to-pink-600 active:scale-95 transition-all text-sm sm:text-base"
+              className={`px-6 py-3 ${mobile ? 'bg-gradient-to-r from-purple-600 to-pink-600' : 'bg-gradient-to-r from-purple-500 to-pink-500'} text-white font-bold rounded-2xl ${mobile ? 'shadow-lg' : ''} active:scale-95 transition-all text-sm flex items-center gap-2`}
             >
-              Try Live Demo →
+              <Play className="w-4 h-4" />
+              Try Live Demo
             </button>
           </div>
         )}
@@ -1029,51 +1129,53 @@ const SlideContent = ({ content, color, setActiveTab }) => {
 
   if (content.type === 'comparison') {
     return (
-      <div className="overflow-x-auto -mx-4 sm:mx-0">
-        <div className="inline-block min-w-full align-middle px-4 sm:px-0">
+      <div className={mobile ? 'overflow-x-auto -mx-5' : 'overflow-x-auto -mx-4 sm:mx-0'}>
+        <div className={`inline-block min-w-full align-middle ${mobile ? 'px-5' : 'px-4 sm:px-0'}`}>
           <table className="min-w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-white/20">
-                <th className="p-2 sm:p-3 md:p-4 text-white font-bold text-xs sm:text-sm md:text-base sticky left-0 bg-slate-900/95 backdrop-blur">Feature</th>
-                <th className="p-2 sm:p-3 md:p-4 text-white font-bold text-xs sm:text-sm md:text-base">
-                  Level 1<br/>
-                  <span className="text-xs font-normal text-purple-200 hidden sm:inline">Simple API</span>
+              <tr className={`border-b ${mobile ? 'border-gray-300' : 'border-white/20'}`}>
+                <th className={`p-2 sm:p-3 ${mobileStyles.heading} font-bold text-xs sm:text-sm sticky left-0 ${mobile ? 'bg-white z-10' : 'bg-slate-900/95 backdrop-blur'}`}>Feature</th>
+                <th className={`p-2 sm:p-3 ${mobileStyles.heading} font-bold text-xs sm:text-sm`}>
+                  L1<br/>
+                  <span className={`text-xs font-normal ${mobile ? 'text-gray-500' : 'text-purple-200'} hidden sm:inline`}>Simple API</span>
                 </th>
-                <th className="p-2 sm:p-3 md:p-4 text-white font-bold text-xs sm:text-sm md:text-base">
-                  Level 2<br/>
-                  <span className="text-xs font-normal text-purple-200 hidden sm:inline">Orchestration</span>
+                <th className={`p-2 sm:p-3 ${mobileStyles.heading} font-bold text-xs sm:text-sm`}>
+                  L2<br/>
+                  <span className={`text-xs font-normal ${mobile ? 'text-gray-500' : 'text-purple-200'} hidden sm:inline`}>Orchestration</span>
                 </th>
-                <th className="p-2 sm:p-3 md:p-4 text-white font-bold text-xs sm:text-sm md:text-base">
-                  Level 3<br/>
-                  <span className="text-xs font-normal text-purple-200 hidden sm:inline">RAG</span>
+                <th className={`p-2 sm:p-3 ${mobileStyles.heading} font-bold text-xs sm:text-sm`}>
+                  L3<br/>
+                  <span className={`text-xs font-normal ${mobile ? 'text-gray-500' : 'text-purple-200'} hidden sm:inline`}>RAG</span>
                 </th>
-                <th className="p-2 sm:p-3 md:p-4 text-white font-bold text-xs sm:text-sm md:text-base">
-                  Level 4<br/>
-                  <span className="text-xs font-normal text-purple-200 hidden sm:inline">MCP</span>
+                <th className={`p-2 sm:p-3 ${mobileStyles.heading} font-bold text-xs sm:text-sm`}>
+                  L4<br/>
+                  <span className={`text-xs font-normal ${mobile ? 'text-gray-500' : 'text-purple-200'} hidden sm:inline`}>MCP</span>
                 </th>
-                <th className="p-2 sm:p-3 md:p-4 text-white font-bold text-xs sm:text-sm md:text-base">
-                  Level 5<br/>
-                  <span className="text-xs font-normal text-purple-200 hidden sm:inline">Full Agentic</span>
+                <th className={`p-2 sm:p-3 ${mobileStyles.heading} font-bold text-xs sm:text-sm`}>
+                  L5<br/>
+                  <span className={`text-xs font-normal ${mobile ? 'text-gray-500' : 'text-purple-200'} hidden sm:inline`}>Full Agentic</span>
                 </th>
               </tr>
             </thead>
             <tbody>
               {content.table.map((row, index) => (
-                <tr key={index} className="border-b border-white/10 hover:bg-white/5">
-                  <td className="p-2 sm:p-3 md:p-4 font-semibold text-purple-200 text-xs sm:text-sm sticky left-0 bg-slate-900/95 backdrop-blur">{row.feature}</td>
-                  <td className="p-2 sm:p-3 md:p-4 text-white/80 text-xs sm:text-sm">{row.level1}</td>
-                  <td className="p-2 sm:p-3 md:p-4 text-white/80 text-xs sm:text-sm">{row.level2}</td>
-                  <td className="p-2 sm:p-3 md:p-4 text-white/80 text-xs sm:text-sm">{row.level3}</td>
-                  <td className="p-2 sm:p-3 md:p-4 text-white/80 text-xs sm:text-sm">{row.level4}</td>
-                  <td className="p-2 sm:p-3 md:p-4 text-white/80 font-semibold text-xs sm:text-sm">{row.level5}</td>
+                <tr key={index} className={`border-b ${mobile ? 'border-gray-200 hover:bg-gray-50' : 'border-white/10 hover:bg-white/5'}`}>
+                  <td className={`p-2 sm:p-3 font-semibold ${mobile ? 'text-purple-700' : 'text-purple-200'} text-xs sm:text-sm sticky left-0 ${mobile ? 'bg-white z-10' : 'bg-slate-900/95 backdrop-blur'}`}>{row.feature}</td>
+                  <td className={`p-2 sm:p-3 ${mobileStyles.text} text-xs sm:text-sm`}>{row.level1}</td>
+                  <td className={`p-2 sm:p-3 ${mobileStyles.text} text-xs sm:text-sm`}>{row.level2}</td>
+                  <td className={`p-2 sm:p-3 ${mobileStyles.text} text-xs sm:text-sm`}>{row.level3}</td>
+                  <td className={`p-2 sm:p-3 ${mobileStyles.text} text-xs sm:text-sm`}>{row.level4}</td>
+                  <td className={`p-2 sm:p-3 ${mobileStyles.text} font-semibold text-xs sm:text-sm`}>{row.level5}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        <p className="text-xs text-purple-300/60 text-center mt-3 sm:hidden">
-          👉 Scroll horizontally to view all levels
-        </p>
+        {mobile && (
+          <p className="text-xs text-gray-500 text-center mt-3 px-5">
+            👉 Scroll right to view all levels
+          </p>
+        )}
       </div>
     );
   }
@@ -1081,40 +1183,45 @@ const SlideContent = ({ content, color, setActiveTab }) => {
   if (content.type === 'cta') {
     return (
       <div className="space-y-4 sm:space-y-6">
-        <p className="text-base sm:text-lg md:text-xl text-white/90 text-center mb-4 sm:mb-6 md:mb-8">
+        <p className={`text-base md:text-lg ${mobileStyles.text} text-center mb-4 sm:mb-6`}>
           Ready to see these concepts in action? Try our interactive demos!
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
           {content.demos.map((demo, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className={`p-4 sm:p-5 md:p-6 rounded-xl border-2 ${
+              className={`p-4 sm:p-5 rounded-2xl border-2 ${
                 demo.available
-                  ? 'bg-gradient-to-br from-purple-500/20 to-pink-500/20 border-purple-400 hover:border-purple-300 cursor-pointer active:scale-95 transition-transform'
-                  : 'bg-white/5 border-white/10'
+                  ? mobile 
+                    ? 'bg-gradient-to-br from-purple-100 to-pink-100 border-purple-400 active:scale-95 shadow-lg'
+                    : 'bg-gradient-to-br from-purple-500/20 to-pink-500/20 border-purple-400 hover:border-purple-300 cursor-pointer active:scale-95 transition-transform'
+                  : mobile
+                    ? 'bg-gray-100 border-gray-300'
+                    : 'bg-white/5 border-white/10'
               }`}
             >
-              <div className="text-xs sm:text-sm font-semibold text-purple-300 mb-2">
+              <div className={`text-xs sm:text-sm font-semibold ${mobile ? 'text-purple-700' : 'text-purple-300'} mb-2`}>
                 {demo.level}
               </div>
-              <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2">
+              <h3 className={`text-lg sm:text-xl font-bold ${mobileStyles.heading} mb-2`}>
                 {demo.title}
               </h3>
-              <p className="text-white/70 mb-3 sm:mb-4 text-sm sm:text-base">
+              <p className={`${mobile ? 'text-gray-600' : 'text-white/70'} mb-3 sm:mb-4 text-sm sm:text-base`}>
                 {demo.description}
               </p>
               {demo.available ? (
                 <button 
                   onClick={() => setActiveTab(demo.link)}
-                  className="w-full py-2 sm:py-2.5 px-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-pink-600 active:scale-95 transition-all text-sm sm:text-base"
+                  className={`w-full py-2.5 px-4 ${mobile ? 'bg-gradient-to-r from-purple-600 to-pink-600 shadow-md' : 'bg-gradient-to-r from-purple-500 to-pink-500'} text-white font-bold rounded-xl active:scale-95 transition-all text-sm flex items-center justify-center gap-2`}
                 >
-                  Try Now →
+                  <Play className="w-4 h-4" />
+                  Try Now
                 </button>
               ) : (
-                <div className="w-full py-2 sm:py-2.5 px-4 bg-white/10 text-white/50 font-semibold rounded-lg text-center text-sm sm:text-base">
+                <div className={`w-full py-2.5 px-4 ${mobile ? 'bg-gray-300 text-gray-600' : 'bg-white/10 text-white/50'} font-semibold rounded-xl text-center text-sm`}>
                   Coming Soon
                 </div>
               )}

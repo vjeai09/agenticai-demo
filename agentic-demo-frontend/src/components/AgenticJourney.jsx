@@ -14,7 +14,8 @@ import {
   Cpu,
   GitBranch,
   Users,
-  Play
+  Play,
+  Home
 } from 'lucide-react';
 
 const AgenticJourney = ({ setActiveTab }) => {
@@ -785,12 +786,18 @@ Memory stored for future trips:
       {/* Mobile App-like Header (Fixed) */}
       <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-4 shadow-xl">
         <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-lg font-bold text-white">Agentic AI Journey</h1>
+          <button
+            onClick={() => setActiveTab('api')}
+            className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shadow-lg active:scale-95 transition-transform"
+          >
+            <Home className="w-5 h-5 text-white" />
+          </button>
+          <div className="flex-1 mx-3">
+            <h1 className="text-base font-bold text-white">Agentic AI Journey</h1>
             <p className="text-xs text-purple-100">Level {currentSlide + 1} of {totalSlides}</p>
           </div>
-          <div className={`w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center shadow-lg`}>
-            <currentSlideData.icon className="w-7 h-7 text-white" />
+          <div className={`w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shadow-lg`}>
+            <currentSlideData.icon className="w-6 h-6 text-white" />
           </div>
         </div>
         

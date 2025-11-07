@@ -724,18 +724,16 @@ Memory stored for future trips:
           {
             level: "Level 3",
             title: "RAG System",
-            description: "Upload docs and ask questions",
+            description: "Experience interactive RAG pipeline",
             link: "rag",
-            available: false,
-            comingSoon: true
+            available: true
           },
           {
             level: "Level 4",
             title: "MCP Agents",
             description: "Watch AI select and use tools",
             link: "mcp",
-            available: false,
-            comingSoon: true
+            available: true
           }
         ]
       }

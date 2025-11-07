@@ -82,9 +82,9 @@ function App() {
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
             >
-              {activeTab === 'api' && <APIDemo />}
-              {activeTab === 'rag' && <RAGDemo />}
-              {activeTab === 'mcp' && <MCPDemo />}
+              {activeTab === 'api' && <APIDemo setActiveTab={setActiveTab} />}
+              {activeTab === 'rag' && <RAGDemo setActiveTab={setActiveTab} />}
+              {activeTab === 'mcp' && <MCPDemo setActiveTab={setActiveTab} />}
             </motion.div>
           </main>
         </>

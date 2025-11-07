@@ -1,8 +1,11 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Sparkles, Wrench, Play, CheckCircle2, Loader2, Eye, Zap, Database, Code, Calendar, MapPin, Plane, Building } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Sparkles, Wrench, Play, CheckCircle2, Loader2, Eye, Zap, Database, Code, Calendar, MapPin, Plane, Building, Home, ChevronLeft, ChevronRight } from 'lucide-react'
 
-export default function MCPDemo() {
+export default function MCPDemo({ setActiveTab }) {
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [touchStart, setTouchStart] = useState(null)
+  const [touchEnd, setTouchEnd] = useState(null)
   const [selectedTool, setSelectedTool] = useState(null)
   const [loading, setLoading] = useState(false)
   const [executionResult, setExecutionResult] = useState(null)

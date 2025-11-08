@@ -250,6 +250,15 @@ export default function RAGDemo({ setActiveTab }) {
           Next<ChevronRight className="w-5 h-5" />
         </button>
       </div>
+
+      {/* Floating Home Button */}
+      <button
+        onClick={() => setActiveTab('journey')}
+        className="md:hidden fixed bottom-6 right-6 z-50 w-14 h-14 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-transform"
+        aria-label="Back to Journey"
+      >
+        <Home className="w-6 h-6 text-white" />
+      </button>
     </div>
   )
 }

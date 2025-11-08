@@ -242,7 +242,7 @@ export default function RAGDemo({ setActiveTab }) {
       {/* Contact Banner */}
       <ContactBanner />
       
-      <div className="md:hidden fixed top-[60px] left-0 right-0 z-40 bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-4 shadow-xl">
+      <div className="md:hidden fixed top-[40px] left-0 right-0 z-40 bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-4 shadow-xl">
         <div className="flex items-center justify-between">
           <button onClick={() => setActiveTab('journey')} className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shadow-lg">
             <Home className="w-5 h-5 text-white" />

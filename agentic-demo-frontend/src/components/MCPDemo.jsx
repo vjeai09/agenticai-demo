@@ -493,7 +493,7 @@ export default function MCPDemo({ setActiveTab }) {
       {/* Contact Banner */}
       <ContactBanner />
       
-      <div className="md:hidden fixed top-[60px] left-0 right-0 z-40 bg-gradient-to-r from-orange-600 to-red-600 px-4 py-4 shadow-xl">
+      <div className="md:hidden fixed top-[40px] left-0 right-0 z-40 bg-gradient-to-r from-orange-600 to-red-600 px-4 py-4 shadow-xl">
         <div className="flex items-center justify-between">
           <button onClick={() => setActiveTab('journey')} className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shadow-lg active:scale-95 transition-transform">
             <Home className="w-5 h-5 text-white" />

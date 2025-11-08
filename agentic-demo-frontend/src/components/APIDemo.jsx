@@ -586,7 +586,7 @@ export default function APIDemo({ setActiveTab }) {
       <ContactBanner />
       
       {/* Mobile Header */}
-      <div className="md:hidden fixed top-[60px] left-0 right-0 z-40 bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-4 shadow-xl">
+      <div className="md:hidden fixed top-[40px] left-0 right-0 z-40 bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-4 shadow-xl">
         <div className="flex items-center justify-between">
           <button
             onClick={() => setActiveTab('journey')}

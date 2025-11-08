@@ -72,7 +72,17 @@ export default function RAGDemo({ setActiveTab }) {
         result = { type: 'query', data: { original: query }, message: '✓ Query processed' }
         break
       case 'search':
-        result = { type: 'search', data: [{ ...knowledgeBase[0], similarity: 0.92 }], message: `✓ Found relevant docs` }
+        result = { 
+          type: 'search', 
+          data: [{ ...knowledgeBase[0], similarity: 0.92 }], 
+          message: `✓ Found relevant docs`,
+          queryEmbedding: `[${Array(8).fill(0).map(() => Math.random().toFixed(3)).join(', ')}...]`,
+          docEmbeddings: [
+            { title: knowledgeBase[0].title, embedding: `[${Array(8).fill(0).map(() => Math.random().toFixed(3)).join(', ')}...]`, similarity: 0.92 },
+            { title: knowledgeBase[1].title, embedding: `[${Array(8).fill(0).map(() => Math.random().toFixed(3)).join(', ')}...]`, similarity: 0.67 },
+            { title: knowledgeBase[2].title, embedding: `[${Array(8).fill(0).map(() => Math.random().toFixed(3)).join(', ')}...]`, similarity: 0.54 }
+          ]
+        }
         break
       case 'response':
         result = { type: 'response', data: { answer: "Tokyo offers excellent family-friendly activities! Top recommendations:\n\n1. Tokyo Disneyland and DisneySea\n2. teamLab Borderless digital art museum\n3. Ueno Zoo with pandas\n4. Odaiba interactive museums" }, message: '✓ Generated answer' }
@@ -158,17 +168,54 @@ export default function RAGDemo({ setActiveTab }) {
               </div>
             )}
 
-            {result.type === 'search' && result.data.map(doc => (
-              <div key={doc.id} className="p-4 bg-yellow-50 rounded-xl border border-yellow-200 mb-3">
-                <div className="flex justify-between items-start mb-2">
-                  <p className="text-yellow-800 font-bold text-sm">{doc.title}</p>
-                  <span className="text-xs px-2 py-1 bg-yellow-200 text-yellow-900 rounded-full font-bold">
-                    {(doc.similarity * 100).toFixed(0)}% match
-                  </span>
+            {result.type === 'search' && (
+              <>
+                {/* Query Embedding */}
+                <div className="mb-4 p-3 bg-orange-50 rounded-xl border-2 border-orange-300">
+                  <p className="text-orange-900 font-bold text-xs mb-2">🔍 Query Vector:</p>
+                  <p className="text-gray-700 text-[10px] font-mono break-all">{result.queryEmbedding}</p>
                 </div>
-                <p className="text-gray-700 text-xs">{doc.content}</p>
-              </div>
-            ))}
+
+                {/* Document Embeddings with Similarity */}
+                <div className="mb-4 space-y-2">
+                  <p className="text-gray-900 font-bold text-xs mb-2">📊 Semantic Similarity Scores:</p>
+                  {result.docEmbeddings.map((doc, idx) => (
+                    <div key={idx} className={`p-3 rounded-xl border-2 ${
+                      doc.similarity > 0.8 ? 'bg-green-50 border-green-300' : 
+                      doc.similarity > 0.6 ? 'bg-yellow-50 border-yellow-300' : 
+                      'bg-gray-50 border-gray-300'
+                    }`}>
+                      <div className="flex justify-between items-center mb-2">
+                        <p className={`font-bold text-xs ${
+                          doc.similarity > 0.8 ? 'text-green-900' : 
+                          doc.similarity > 0.6 ? 'text-yellow-900' : 
+                          'text-gray-700'
+                        }`}>{doc.title}</p>
+                        <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${
+                          doc.similarity > 0.8 ? 'bg-green-200 text-green-900' : 
+                          doc.similarity > 0.6 ? 'bg-yellow-200 text-yellow-900' : 
+                          'bg-gray-200 text-gray-700'
+                        }`}>
+                          {(doc.similarity * 100).toFixed(0)}%
+                        </span>
+                      </div>
+                      <p className="text-gray-600 text-[9px] font-mono break-all">{doc.embedding}</p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Best Match Document */}
+                <div className="p-4 bg-gradient-to-br from-yellow-50 to-green-50 rounded-xl border-2 border-yellow-300">
+                  <p className="text-green-700 font-bold text-xs mb-2">✨ Best Match Retrieved:</p>
+                  {result.data.map(doc => (
+                    <div key={doc.id}>
+                      <p className="text-yellow-900 font-bold text-sm mb-1">{doc.title}</p>
+                      <p className="text-gray-700 text-xs">{doc.content}</p>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
 
             {result.type === 'response' && (
               <div className="p-5 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl border-2 border-indigo-300">

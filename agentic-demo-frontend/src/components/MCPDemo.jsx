@@ -337,38 +337,39 @@ export default function MCPDemo({ setActiveTab }) {
       )}
 
       {executionLog.length > 0 && (
-        <div className="space-y-3 max-h-[400px] overflow-y-auto">
-          <h4 className="font-bold text-gray-900 text-sm flex items-center gap-2 sticky top-0 bg-white py-2">
-            <Code className="w-5 h-5 text-green-600" />
-            Execution Log ({executionLog.length} steps)
+        <div className="space-y-2">
+          <h4 className="font-bold text-gray-900 text-sm flex items-center gap-2">
+            <Code className="w-4 h-4 text-green-600" />
+            Execution Steps ({executionLog.length})
           </h4>
-          {executionLog.map((log, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="bg-gray-50 border-2 border-gray-200 rounded-xl p-3"
-            >
-              <div className="flex items-start gap-2">
-                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center font-bold text-xs text-white">
-                  {log.step}
+          <div className="grid grid-cols-1 gap-2">
+            {executionLog.map((log, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-300 rounded-lg p-2"
+              >
+                <div className="flex items-start gap-2">
+                  <div className="flex-shrink-0 w-5 h-5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center font-bold text-[10px] text-white">
+                    {log.step}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[10px] font-bold text-purple-700">{log.agent}</p>
+                    <p className="text-[9px] text-gray-700 line-clamp-1">▸ {log.action}</p>
+                    {log.result && (
+                      <div className="mt-1 flex items-center gap-1">
+                        <CheckCircle2 className="w-3 h-3 text-green-600 flex-shrink-0" />
+                        <p className="text-[9px] text-green-700 font-semibold line-clamp-1">
+                          {typeof log.result === 'object' ? JSON.stringify(log.result).substring(0, 50) + '...' : log.result}
+                        </p>
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-xs font-bold text-blue-700 mb-1">{log.agent}</p>
-                  <p className="text-[11px] text-gray-700 mb-1">💭 {log.thought}</p>
-                  <p className="text-[11px] text-purple-600 font-semibold mb-1">▸ {log.action}</p>
-                  
-                  {log.result && (
-                    <div className="mt-2 p-2 bg-green-50 border border-green-300 rounded text-[10px]">
-                      <pre className="text-green-800 whitespace-pre-wrap overflow-x-auto">
-                        {JSON.stringify(log.result, null, 2)}
-                      </pre>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            ))}
+          </div>
         </div>
       )}
     </div>

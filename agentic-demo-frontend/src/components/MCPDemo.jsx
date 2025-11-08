@@ -192,9 +192,8 @@ export default function MCPDemo({ setActiveTab }) {
     setExecutionResult(finalPlan)
     setLoading(false)
     
-    setTimeout(() => {
-      setCurrentSlide(2)
-    }, 1000)
+    // Don't auto-advance - let user review the execution steps
+    // Users can manually click Next to see the final result
   }
 
   const nextSlide = () => {
@@ -371,6 +370,40 @@ export default function MCPDemo({ setActiveTab }) {
             ))}
           </div>
         </div>
+      )}
+
+      {executionResult && !loading && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-400 rounded-2xl p-4"
+        >
+          <div className="flex items-center gap-2 mb-3">
+            <CheckCircle2 className="w-6 h-6 text-green-600" />
+            <p className="font-bold text-green-900 text-sm">✨ Agent Execution Complete!</p>
+          </div>
+          
+          <div className="bg-white rounded-xl p-3 mb-3">
+            <p className="text-xs text-gray-700 mb-2 font-semibold">🛠️ MCP Tools Used:</p>
+            <div className="flex flex-wrap gap-2">
+              {executionResult.toolsUsed.map((tool, idx) => (
+                <span key={idx} className="px-2 py-1 bg-gradient-to-r from-blue-100 to-purple-100 text-purple-800 text-[10px] rounded-full font-bold border border-purple-300">
+                  {tool}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl p-3">
+            <p className="text-xs text-gray-700 mb-1"><span className="font-bold">Total Steps:</span> {executionLog.length}</p>
+            <p className="text-xs text-gray-700 mb-1"><span className="font-bold">Tools Called:</span> {executionResult.toolsUsed.length}</p>
+            <p className="text-xs text-gray-700"><span className="font-bold">Budget:</span> {executionResult.budget.total}</p>
+          </div>
+
+          <div className="mt-3 text-center">
+            <p className="text-xs text-green-800 font-semibold">👉 Click Next to see the full travel plan!</p>
+          </div>
+        </motion.div>
       )}
     </div>
   )

@@ -192,7 +192,15 @@ export default function MCPDemo({ setActiveTab }) {
     }, 1000)
   }
 
-  const nextSlide = () => currentSlide < totalSlides - 1 && setCurrentSlide(currentSlide + 1)
+  const nextSlide = () => {
+    if (currentSlide < totalSlides - 1) {
+      setCurrentSlide(currentSlide + 1)
+    } else {
+      // After completing MCP Demo, return to Journey
+      setActiveTab('journey')
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
   const prevSlide = () => currentSlide > 0 && setCurrentSlide(currentSlide - 1)
   const goToSlide = (index) => setCurrentSlide(index)
 
@@ -508,8 +516,8 @@ export default function MCPDemo({ setActiveTab }) {
               <button key={index} onClick={() => goToSlide(index)} className={`w-2.5 h-2.5 rounded-full transition-all ${index === currentSlide ? 'bg-white w-8' : 'bg-white/40'}`} />
             ))}
           </div>
-          <button onClick={nextSlide} disabled={currentSlide === totalSlides - 1} className="px-5 py-3 bg-white/10 hover:bg-white/20 rounded-xl font-semibold text-white flex items-center gap-2 transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-95">
-            Next<ChevronRight className="w-5 h-5" />
+          <button onClick={nextSlide} className="px-5 py-3 bg-white/10 hover:bg-white/20 rounded-xl font-semibold text-white flex items-center gap-2 transition-all active:scale-95">
+            {currentSlide === totalSlides - 1 ? 'Complete' : 'Next'}<ChevronRight className="w-5 h-5" />
           </button>
         </div>
       </div>
@@ -523,8 +531,8 @@ export default function MCPDemo({ setActiveTab }) {
             <button key={index} onClick={() => goToSlide(index)} className={`w-3 h-3 rounded-full transition-all ${index === currentSlide ? 'bg-white w-12' : 'bg-white/40'}`} />
           ))}
         </div>
-        <button onClick={nextSlide} disabled={currentSlide === totalSlides - 1} className="px-8 py-4 bg-white/10 hover:bg-white/20 rounded-xl font-semibold text-white flex items-center gap-2 transition-all disabled:opacity-30 disabled:cursor-not-allowed">
-          Next<ChevronRight className="w-5 h-5" />
+        <button onClick={nextSlide} className="px-8 py-4 bg-white/10 hover:bg-white/20 rounded-xl font-semibold text-white flex items-center gap-2 transition-all">
+          {currentSlide === totalSlides - 1 ? 'Complete Journey' : 'Next'}<ChevronRight className="w-5 h-5" />
         </button>
       </div>
 

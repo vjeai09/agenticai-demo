@@ -78,7 +78,15 @@ export default function RAGDemo({ setActiveTab }) {
     setLoading(false)
   }
 
-  const nextSlide = () => currentSlide < totalSlides - 1 && setCurrentSlide(currentSlide + 1)
+  const nextSlide = () => {
+    if (currentSlide < totalSlides - 1) {
+      setCurrentSlide(currentSlide + 1)
+    } else {
+      // After completing RAG Demo, move to MCP Demo
+      setActiveTab('mcp')
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
   const prevSlide = () => currentSlide > 0 && setCurrentSlide(currentSlide - 1)
   const goToSlide = (index) => setCurrentSlide(index)
 
@@ -235,8 +243,8 @@ export default function RAGDemo({ setActiveTab }) {
             <ChevronLeft className="w-5 h-5" /><span className="text-sm">Back</span>
           </button>
           <div className="flex gap-2">{slides.map((_, i) => <button key={i} onClick={() => goToSlide(i)} className={`w-2 h-2 rounded-full transition-all ${i === currentSlide ? 'bg-white w-8' : 'bg-white/40'}`} />)}</div>
-          <button onClick={nextSlide} disabled={currentSlide === totalSlides - 1} className="px-6 py-3 bg-white/20 rounded-xl font-semibold text-white disabled:opacity-30 flex items-center gap-2">
-            <span className="text-sm">Next</span><ChevronRight className="w-5 h-5" />
+          <button onClick={nextSlide} className="px-6 py-3 bg-white/20 rounded-xl font-semibold text-white flex items-center gap-2">
+            <span className="text-sm">{currentSlide === totalSlides - 1 ? 'Next: MCP' : 'Next'}</span><ChevronRight className="w-5 h-5" />
           </button>
         </div>
       </div>
@@ -246,8 +254,8 @@ export default function RAGDemo({ setActiveTab }) {
           <ChevronLeft className="w-5 h-5" />Previous
         </button>
         <div className="flex gap-3">{slides.map((_, i) => <button key={i} onClick={() => goToSlide(i)} className={`w-3 h-3 rounded-full transition-all ${i === currentSlide ? 'bg-white w-12' : 'bg-white/30 hover:bg-white/50'}`} />)}</div>
-        <button onClick={nextSlide} disabled={currentSlide === totalSlides - 1} className="px-8 py-3 bg-white/10 hover:bg-white/20 rounded-xl font-semibold text-white disabled:opacity-30 flex items-center gap-2">
-          Next<ChevronRight className="w-5 h-5" />
+        <button onClick={nextSlide} className="px-8 py-3 bg-white/10 hover:bg-white/20 rounded-xl font-semibold text-white flex items-center gap-2">
+          {currentSlide === totalSlides - 1 ? 'Continue to MCP Demo' : 'Next'}<ChevronRight className="w-5 h-5" />
         </button>
       </div>
 

@@ -180,6 +180,10 @@ export default function APIDemo({ setActiveTab }) {
   const nextSlide = () => {
     if (currentSlide < totalSlides - 1) {
       setCurrentSlide(currentSlide + 1)
+    } else {
+      // After completing API Demo, move to RAG Demo
+      setActiveTab('rag')
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }
 
@@ -703,10 +707,9 @@ export default function APIDemo({ setActiveTab }) {
 
           <button
             onClick={nextSlide}
-            disabled={currentSlide === totalSlides - 1}
-            className="px-6 py-3 bg-white/20 backdrop-blur-md rounded-xl font-semibold text-white disabled:opacity-30 disabled:cursor-not-allowed flex items-center gap-2 shadow-lg active:scale-95 transition-all"
+            className="px-6 py-3 bg-white/20 backdrop-blur-md rounded-xl font-semibold text-white flex items-center gap-2 shadow-lg active:scale-95 transition-all"
           >
-            <span className="text-sm">Next</span>
+            <span className="text-sm">{currentSlide === totalSlides - 1 ? 'Next: RAG Demo' : 'Next'}</span>
             <ChevronRight className="w-5 h-5" />
           </button>
         </div>
@@ -739,10 +742,9 @@ export default function APIDemo({ setActiveTab }) {
 
         <button
           onClick={nextSlide}
-          disabled={currentSlide === totalSlides - 1}
-          className="px-8 py-3 bg-white/10 hover:bg-white/20 rounded-xl font-semibold text-white disabled:opacity-30 disabled:cursor-not-allowed flex items-center gap-2 transition-all"
+          className="px-8 py-3 bg-white/10 hover:bg-white/20 rounded-xl font-semibold text-white flex items-center gap-2 transition-all"
         >
-          Next
+          {currentSlide === totalSlides - 1 ? 'Continue to RAG Demo' : 'Next'}
           <ChevronRight className="w-5 h-5" />
         </button>
       </div>

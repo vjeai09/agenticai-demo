@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Sparkles, Wrench, Play, CheckCircle2, Loader2, Eye, Zap, Database, Code, Calendar, MapPin, Plane, Building, Home, ChevronLeft, ChevronRight } from 'lucide-react'
+import ContactBanner from './ContactBanner'
 
 export default function MCPDemo({ setActiveTab }) {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -292,13 +293,16 @@ export default function MCPDemo({ setActiveTab }) {
 
       <div>
         <label className="block text-sm font-bold text-gray-900 mb-2">📝 Your Task:</label>
-        <textarea
-          value={taskInput}
-          onChange={(e) => setTaskInput(e.target.value)}
-          className="w-full px-4 py-3 bg-white border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 text-gray-900 text-sm"
-          rows="3"
-          placeholder="What would you like to plan?"
-        />
+        <div className="relative">
+          <textarea
+            value={taskInput}
+            readOnly
+            className="w-full px-4 py-3 bg-gray-100 border-2 border-gray-300 rounded-xl text-gray-900 text-sm cursor-not-allowed opacity-75"
+            rows="3"
+            placeholder="What would you like to plan?"
+          />
+          <span className="absolute right-3 bottom-3 text-xs text-gray-500 font-semibold">📍 Demo Task</span>
+        </div>
       </div>
 
       <button
@@ -486,7 +490,10 @@ export default function MCPDemo({ setActiveTab }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-orange-600 to-red-600 px-4 py-4 shadow-xl">
+      {/* Contact Banner */}
+      <ContactBanner />
+      
+      <div className="md:hidden fixed top-[60px] left-0 right-0 z-40 bg-gradient-to-r from-orange-600 to-red-600 px-4 py-4 shadow-xl">
         <div className="flex items-center justify-between">
           <button onClick={() => setActiveTab('journey')} className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shadow-lg active:scale-95 transition-transform">
             <Home className="w-5 h-5 text-white" />
@@ -504,7 +511,7 @@ export default function MCPDemo({ setActiveTab }) {
         </div>
       </div>
 
-      <div className="hidden md:block max-w-6xl mx-auto pt-8 mb-8">
+      <div className="hidden md:block max-w-6xl mx-auto pt-24 mb-8">
         <div className="flex items-center justify-between mb-4">
           <button onClick={() => setActiveTab('journey')} className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-xl font-semibold text-white flex items-center gap-2 transition-all">
             <Home className="w-5 h-5" />Back to Journey

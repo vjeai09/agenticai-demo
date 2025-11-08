@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Cloud, Newspaper, DollarSign, Zap, Loader2, CheckCircle2, XCircle, Play, Home, ChevronLeft, ChevronRight } from 'lucide-react'
+import ContactBanner from './ContactBanner'
 
 export default function APIDemo({ setActiveTab }) {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -247,13 +248,16 @@ export default function APIDemo({ setActiveTab }) {
 
             <div>
               <label className={labelClass}>Enter City Name</label>
-              <input
-                type="text"
-                value={inputs.city}
-                onChange={(e) => handleInputChange('city', e.target.value)}
-                className={inputClass}
-                placeholder="e.g., Tokyo, Paris, New York"
-              />
+              <div className="relative">
+                <input
+                  type="text"
+                  value={inputs.city}
+                  readOnly
+                  className={`${inputClass} cursor-not-allowed bg-gray-100 opacity-75`}
+                  placeholder="e.g., Tokyo, Paris, New York"
+                />
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-500 font-semibold">📍 Demo Value</span>
+              </div>
             </div>
 
             <button
@@ -319,13 +323,16 @@ export default function APIDemo({ setActiveTab }) {
 
             <div>
               <label className={labelClass}>Search Query</label>
-              <input
-                type="text"
-                value={inputs.newsQuery}
-                onChange={(e) => handleInputChange('newsQuery', e.target.value)}
-                className={inputClass}
-                placeholder="e.g., Tokyo travel December"
-              />
+              <div className="relative">
+                <input
+                  type="text"
+                  value={inputs.newsQuery}
+                  readOnly
+                  className={`${inputClass} cursor-not-allowed bg-gray-100 opacity-75`}
+                  placeholder="e.g., Tokyo travel December"
+                />
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-500 font-semibold">📍 Demo Value</span>
+              </div>
             </div>
 
             <button
@@ -378,35 +385,44 @@ export default function APIDemo({ setActiveTab }) {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className={labelClass}>From</label>
-                <input
-                  type="text"
-                  value={inputs.fromCurrency}
-                  onChange={(e) => handleInputChange('fromCurrency', e.target.value)}
-                  className={inputClass}
-                  placeholder="USD"
-                />
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={inputs.fromCurrency}
+                    readOnly
+                    className={`${inputClass} cursor-not-allowed bg-gray-100 opacity-75`}
+                    placeholder="USD"
+                  />
+                  <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-gray-500 font-semibold">📍 Demo</span>
+                </div>
               </div>
               <div>
                 <label className={labelClass}>To</label>
-                <input
-                  type="text"
-                  value={inputs.toCurrency}
-                  onChange={(e) => handleInputChange('toCurrency', e.target.value)}
-                  className={inputClass}
-                  placeholder="JPY"
-                />
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={inputs.toCurrency}
+                    readOnly
+                    className={`${inputClass} cursor-not-allowed bg-gray-100 opacity-75`}
+                    placeholder="JPY"
+                  />
+                  <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-gray-500 font-semibold">📍 Demo</span>
+                </div>
               </div>
             </div>
 
             <div>
               <label className={labelClass}>Amount</label>
-              <input
-                type="number"
-                value={inputs.amount}
-                onChange={(e) => handleInputChange('amount', e.target.value)}
-                className={inputClass}
-                placeholder="2000"
-              />
+              <div className="relative">
+                <input
+                  type="number"
+                  value={inputs.amount}
+                  readOnly
+                  className={`${inputClass} cursor-not-allowed bg-gray-100 opacity-75`}
+                  placeholder="2000"
+                />
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-500 font-semibold">📍 Demo Value</span>
+              </div>
             </div>
 
             <button
@@ -566,8 +582,11 @@ export default function APIDemo({ setActiveTab }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      {/* Contact Banner */}
+      <ContactBanner />
+      
       {/* Mobile Header */}
-      <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-4 shadow-xl">
+      <div className="md:hidden fixed top-[60px] left-0 right-0 z-40 bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-4 shadow-xl">
         <div className="flex items-center justify-between">
           <button
             onClick={() => setActiveTab('journey')}

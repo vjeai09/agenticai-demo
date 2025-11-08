@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Database, Brain, Play, CheckCircle2, Loader2, Eye, Sparkles, Zap, Home, ChevronLeft, ChevronRight } from 'lucide-react'
+import ContactBanner from './ContactBanner'
 
 export default function RAGDemo({ setActiveTab }) {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -123,7 +124,15 @@ export default function RAGDemo({ setActiveTab }) {
         {currentSlideData.step === 'query' && (
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">Your Question:</label>
-            <textarea value={query} onChange={(e) => setQuery(e.target.value)} className="w-full px-4 py-3 bg-white border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-gray-900" rows="3" />
+            <div className="relative">
+              <textarea 
+                value={query} 
+                readOnly
+                className="w-full px-4 py-3 bg-gray-100 border-2 border-gray-300 rounded-lg text-gray-900 cursor-not-allowed opacity-75" 
+                rows="3" 
+              />
+              <span className="absolute right-3 bottom-3 text-xs text-gray-500 font-semibold">📍 Demo Query</span>
+            </div>
           </div>
         )}
 
@@ -230,7 +239,10 @@ export default function RAGDemo({ setActiveTab }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-4 shadow-xl">
+      {/* Contact Banner */}
+      <ContactBanner />
+      
+      <div className="md:hidden fixed top-[60px] left-0 right-0 z-40 bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-4 shadow-xl">
         <div className="flex items-center justify-between">
           <button onClick={() => setActiveTab('journey')} className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shadow-lg">
             <Home className="w-5 h-5 text-white" />
@@ -248,7 +260,7 @@ export default function RAGDemo({ setActiveTab }) {
         </div>
       </div>
 
-      <div className="hidden md:block max-w-6xl mx-auto pt-8 mb-8">
+      <div className="hidden md:block max-w-6xl mx-auto pt-24 mb-8">
         <div className="flex items-center justify-between mb-4">
           <button onClick={() => setActiveTab('journey')} className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-xl font-semibold text-white flex items-center gap-2 transition-all">
             <Home className="w-5 h-5" />Back to Journey

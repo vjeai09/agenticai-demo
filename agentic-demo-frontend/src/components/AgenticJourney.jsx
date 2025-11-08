@@ -17,6 +17,7 @@ import {
   Play,
   Home
 } from 'lucide-react';
+import ContactBanner from './ContactBanner';
 
 const AgenticJourney = ({ setActiveTab }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -786,8 +787,11 @@ Memory stored for future trips:
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 md:p-8">
+      {/* Contact Banner */}
+      <ContactBanner />
+      
       {/* Mobile App-like Header (Fixed) */}
-      <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-4 shadow-xl">
+      <div className="md:hidden fixed top-[60px] left-0 right-0 z-40 bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-4 shadow-xl">
         <div className="flex items-center justify-between">
           <button
             onClick={() => setActiveTab('api')}

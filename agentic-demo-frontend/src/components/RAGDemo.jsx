@@ -12,6 +12,11 @@ export default function RAGDemo({ setActiveTab }) {
   
   const minSwipeDistance = 50
 
+  // Reset to first slide when component mounts
+  useEffect(() => {
+    setCurrentSlide(0)
+  }, [])
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [currentSlide])

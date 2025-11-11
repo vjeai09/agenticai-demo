@@ -1,3 +1,8 @@
+| col1 | col2 | col3 |
+| ---- | ---- | ---- |
+|      |      |      |
+|      |      |      |
+
 # S V Banquet Halls - Premium Event Venues in Hyderabad
 
 ## 🏛️ About
@@ -7,6 +12,7 @@ S V Banquet Halls is a premier event venue provider in Hyderabad, India, offerin
 ## ✨ Features
 
 ### 🎯 Smart Booking System
+
 - Instant availability checking
 - Real-time venue recommendations
 - AI-powered event planning assistance
@@ -15,18 +21,19 @@ S V Banquet Halls is a premier event venue provider in Hyderabad, India, offerin
 ### 🏢 Three Premium Venues
 
 1. **Grand Palace Hall** (500-1000 guests)
+
    - 15,000 sq ft luxury space
    - Professional sound & lighting
    - Parking for 200 vehicles
    - Perfect for grand weddings
-
 2. **Royal Garden Hall** (200-500 guests)
+
    - 8,000 sq ft + garden area
    - Indoor-outdoor combination
    - Scenic photography spots
    - Ideal for intimate events
-
 3. **Executive Conference Hall** (50-200 guests)
+
    - 3,000 sq ft business space
    - High-speed WiFi & AV equipment
    - Modern amenities
@@ -50,6 +57,7 @@ S V Banquet Halls is a premier event venue provider in Hyderabad, India, offerin
 ## 🚀 Technology Stack
 
 ### Frontend
+
 - **React 18.3.1** - Modern UI library
 - **Vite 5.4.6** - Lightning-fast build tool
 - **Tailwind CSS 3.4.11** - Utility-first styling
@@ -58,12 +66,14 @@ S V Banquet Halls is a premier event venue provider in Hyderabad, India, offerin
 - **Axios** - API communication
 
 ### Backend
+
 - **Python 3.13.5** - Programming language
 - **FastAPI** - High-performance REST API
 - **Uvicorn** - ASGI server
 - **httpx** - Async HTTP client
 
 ### Design
+
 - Glass-morphism UI with dark gradients
 - Responsive mobile-first design
 - Animated particle backgrounds
@@ -72,6 +82,7 @@ S V Banquet Halls is a premier event venue provider in Hyderabad, India, offerin
 ## 🛠️ Installation & Setup
 
 ### Prerequisites
+
 - Python 3.13+
 - Node.js 18+
 - npm or yarn
@@ -135,7 +146,9 @@ chmod +x start.sh
 ## 🌐 Website Sections
 
 ### 1. Book Now
+
 Interactive booking form with:
+
 - Personal information collection
 - Event date and type selection
 - Guest count estimation
@@ -143,7 +156,9 @@ Interactive booking form with:
 - Booking inquiry submission
 
 ### 2. Our Venues
+
 Detailed venue showcase with:
+
 - High-quality venue presentations
 - Capacity and size information
 - Feature lists and highlights
@@ -151,7 +166,9 @@ Detailed venue showcase with:
 - Customer ratings
 
 ### 3. Services & Packages
+
 Complete service catalog including:
+
 - Individual service offerings
 - Pre-designed event packages
 - Pricing information
@@ -160,6 +177,7 @@ Complete service catalog including:
 ## 🎨 Design System
 
 ### Color Palette
+
 - Primary: Blue to Purple gradient
 - Secondary: Cyan, Pink, Orange accents
 - Background: Dark slate (950) to blue (950)
@@ -167,12 +185,14 @@ Complete service catalog including:
 - Accents: Green (success), Red (error), Yellow (highlights)
 
 ### Typography
+
 - Font: System fonts with fallbacks
 - Headings: Bold, gradient text effects
 - Body: Light gray for readability
 - Links: Blue hover states
 
 ### Components
+
 - Glass-morphism cards with backdrop blur
 - Gradient buttons with hover effects
 - Animated particle backgrounds
@@ -184,6 +204,7 @@ Complete service catalog including:
 ### Update Contact Information
 
 Edit `/frontend-app/src/App.jsx`:
+
 ```jsx
 // Update phone number
 <a href="tel:+919876543210">+91 98765 43210</a>
@@ -198,6 +219,7 @@ Edit `/frontend-app/src/App.jsx`:
 ### Modify Venue Details
 
 Edit `/frontend-app/src/components/VenuesDemo.jsx`:
+
 ```jsx
 const venues = [
   {
@@ -211,6 +233,7 @@ const venues = [
 ### Update Service Offerings
 
 Edit `/frontend-app/src/components/ServicesDemo.jsx`:
+
 ```jsx
 const services = [
   {
@@ -225,6 +248,7 @@ const services = [
 ## 📱 Responsive Design
 
 The website is fully responsive and optimized for:
+
 - Desktop (1920px+)
 - Laptop (1024px-1919px)
 - Tablet (768px-1023px)
@@ -253,6 +277,7 @@ The website is fully responsive and optimized for:
 ## 🤝 Support
 
 For technical support or inquiries:
+
 - Email: info@svbanquethalls.com
 - Phone: +91 98765 43210
 - Website: Visit our booking page

@@ -1072,7 +1072,7 @@ const SlideContent = ({ content, color, setActiveTab, mobile = false }) => {
     const isFirstSlide = content.agenda && content.audience;
     return (
       <div className="space-y-4 sm:space-y-6 w-full">
-        <p className={`text-base leading-relaxed ${mobile ? 'text-gray-700' : 'text-white/90 md:text-lg'} animate-fade-in`}>
+        <p className={`text-base leading-relaxed ${mobile ? 'text-gray-700' : 'text-gray-900 md:text-lg font-semibold'} animate-fade-in`}>
           {typed}
           {mobile && typed.length < content.description.length && <span className="animate-pulse">|</span>}
         </p>
@@ -1083,14 +1083,14 @@ const SlideContent = ({ content, color, setActiveTab, mobile = false }) => {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="relative backdrop-blur-2xl bg-white/30 border border-purple-200/60 shadow-2xl rounded-3xl p-6 md:p-10 flex flex-col items-start glass-card transition-all hover:scale-[1.035] hover:shadow-[0_8px_48px_rgba(168,85,247,0.18)] group overflow-hidden"
+              className="relative backdrop-blur-3xl bg-white/60 border border-purple-200/80 shadow-2xl rounded-3xl p-6 md:p-10 flex flex-col items-start glass-card transition-all hover:scale-[1.035] hover:shadow-[0_8px_48px_rgba(168,85,247,0.18)] group overflow-hidden"
             >
               <div className="absolute -top-6 -right-6 w-20 h-20 bg-gradient-to-br from-purple-400/30 to-pink-300/20 rounded-full blur-2xl z-0 animate-float" />
               <div className="relative z-10 flex items-center gap-2 mb-3">
                 <svg className="w-7 h-7 text-purple-500 drop-shadow-lg" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" /></svg>
-                <h3 className="font-bold text-purple-700 text-lg md:text-xl tracking-wide">Course Agenda</h3>
+                <h3 className="font-bold text-purple-800 text-lg md:text-xl tracking-wide">Course Agenda</h3>
               </div>
-              <ul className="list-disc pl-5 text-base md:text-lg text-gray-800/90 space-y-1 relative z-10">
+              <ul className="list-disc pl-5 text-base md:text-lg text-gray-900 space-y-1 relative z-10 font-medium">
                 {content.agenda.map((item, idx) => (
                   <li key={idx}>{item}</li>
                 ))}
@@ -1101,14 +1101,14 @@ const SlideContent = ({ content, color, setActiveTab, mobile = false }) => {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.25 }}
-              className="relative backdrop-blur-2xl bg-white/30 border border-yellow-200/60 shadow-2xl rounded-3xl p-6 md:p-10 flex flex-col items-start glass-card transition-all hover:scale-[1.035] hover:shadow-[0_8px_48px_rgba(251,191,36,0.14)] group overflow-hidden"
+              className="relative backdrop-blur-3xl bg-white/60 border border-yellow-200/80 shadow-2xl rounded-3xl p-6 md:p-10 flex flex-col items-start glass-card transition-all hover:scale-[1.035] hover:shadow-[0_8px_48px_rgba(251,191,36,0.14)] group overflow-hidden"
             >
               <div className="absolute -top-6 -left-6 w-20 h-20 bg-gradient-to-br from-yellow-300/30 to-pink-200/20 rounded-full blur-2xl z-0 animate-float" />
               <div className="relative z-10 flex items-center gap-2 mb-3">
                 <svg className="w-7 h-7 text-yellow-500 drop-shadow-lg" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4M12 8h.01" /></svg>
-                <h3 className="font-bold text-yellow-700 text-lg md:text-xl tracking-wide">Who is this for?</h3>
+                <h3 className="font-bold text-yellow-800 text-lg md:text-xl tracking-wide">Who is this for?</h3>
               </div>
-              <ul className="list-disc pl-5 text-base md:text-lg text-gray-800/90 space-y-1 relative z-10">
+              <ul className="list-disc pl-5 text-base md:text-lg text-gray-900 space-y-1 relative z-10 font-medium">
                 {content.audience.map((item, idx) => (
                   <li key={idx}>{item}</li>
                 ))}
@@ -1124,10 +1124,10 @@ const SlideContent = ({ content, color, setActiveTab, mobile = false }) => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 + index * 0.08, duration: 0.6 }}
-              className="flex items-start gap-2 sm:gap-3 backdrop-blur-xl bg-white/25 border border-white/30 shadow-lg p-4 sm:p-5 rounded-2xl glass-card hover:scale-105 transition-transform"
+              className="flex items-start gap-2 sm:gap-3 backdrop-blur-xl bg-white/50 border border-white/40 shadow-lg p-4 sm:p-5 rounded-2xl glass-card hover:scale-105 transition-transform"
             >
               <div className={`mt-1 w-2 h-2 flex-shrink-0 rounded-full bg-gradient-to-r ${color}`} />
-              <span className="text-gray-900 text-base sm:text-lg font-medium">{point}</span>
+              <span className="text-gray-900 text-base sm:text-lg font-semibold">{point}</span>
             </motion.div>
           ))}
         </div>
@@ -1137,17 +1137,17 @@ const SlideContent = ({ content, color, setActiveTab, mobile = false }) => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.6 }}
-            className="backdrop-blur-2xl bg-white/30 border border-pink-200/60 shadow-2xl rounded-3xl p-6 md:p-10 flex flex-col items-start glass-card mt-4 transition-all overflow-hidden relative"
+            className="backdrop-blur-3xl bg-white/60 border border-pink-200/80 shadow-2xl rounded-3xl p-6 md:p-10 flex flex-col items-start glass-card mt-4 transition-all overflow-hidden relative"
           >
             <div className="absolute -bottom-6 right-0 w-24 h-24 bg-gradient-to-br from-pink-300/30 to-purple-200/20 rounded-full blur-2xl z-0 animate-float" />
-            <h3 className="text-xl md:text-2xl font-bold text-pink-700 mb-2 flex items-center gap-2 relative z-10">
+            <h3 className="text-xl md:text-2xl font-bold text-pink-800 mb-2 flex items-center gap-2 relative z-10">
               {content.useCase.title}
             </h3>
-            <p className="text-gray-700 text-base md:text-lg mb-3 relative z-10">
+            <p className="text-gray-900 text-base md:text-lg mb-3 relative z-10 font-medium">
               {content.useCase.description}
             </p>
-            <div className="bg-white/40 p-3 md:p-4 rounded-xl border border-pink-200/40 shadow-sm relative z-10">
-              <p className="text-pink-700 font-semibold text-base md:text-lg">
+            <div className="bg-white/70 p-3 md:p-4 rounded-xl border border-pink-200/40 shadow-sm relative z-10">
+              <p className="text-pink-800 font-semibold text-base md:text-lg">
                 {content.useCase.scenario}
               </p>
             </div>

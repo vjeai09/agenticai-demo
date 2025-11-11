@@ -1,14 +1,3 @@
-      {/* Fixed Educational Banner for Mobile */}
-      <div className="fixed top-0 left-0 right-0 z-[60] w-full">
-        <div className="bg-gradient-to-r from-yellow-400/90 to-pink-400/90 text-slate-900 font-semibold text-center py-1.5 px-2 shadow-md border-b border-yellow-300/60">
-          <span className="inline-flex items-center gap-2 justify-center text-xs sm:text-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-pink-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M12 20c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8z" /></svg>
-            <span>
-              <span className="font-bold">Agentic AI Course:</span> Step-by-step, hands-on learning. Build agentic AI apps as you go!
-            </span>
-          </span>
-        </div>
-      </div>
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from 'framer-motion';
 import { 
@@ -45,56 +34,24 @@ const AgenticJourney = ({ setActiveTab }) => {
 
   const slides = [
     {
-      level: "Course Agenda",
-      title: "What You'll Learn in This Course",
-      subtitle: "Your roadmap from APIs to AI agents and beyond",
+      level: "Welcome",
+      title: "The Journey to Agentic AI",
+      subtitle: "From Simple APIs to Intelligent Autonomous Agents",
       icon: Brain,
       color: "from-purple-500 to-pink-500",
       content: {
         type: "intro",
-        description: "Here's what we'll cover together, step by step:",
-        agenda: [
-          "Start with simple APIs",
-          "Add AI and data science features",
-          "Use your own data (RAG)",
-          "Build AI agents that use tools",
-          "Work with multiple models",
-          "See how to run on multi-cloud"
-        ],
-        audience: [
-          "Beginners: No AI experience needed!",
-          "Developers: See real code and hands-on demos.",
-          "Business folks: Understand how agentic AI can help your work."
-        ],
+        description: "Discover how AI systems evolve from basic request-response patterns to intelligent, autonomous agents that can think, plan, and act independently.",
         keyPoints: [
-          "5 short, easy lessons",
-          "One simple project: a travel planner",
-          "Try things out as you learn",
-          "See how AI gets smarter at each step"
-        ],
-        useCase: null
-      }
-    },
-    {
-      level: "Course Intro",
-      title: "Let's Get Started!",
-      subtitle: "Build a smart travel planner, step by step",
-      icon: Brain,
-      color: "from-purple-500 to-pink-500",
-      content: {
-        type: "intro",
-        description: "This course will show you, step by step, how to build smart AI apps. You'll start simple and add more features as you go. We'll use a travel planner example, so you can see how things work in real life.",
-        agenda: null,
-        keyPoints: [
-          "5 short, easy lessons",
-          "One simple project: a travel planner",
-          "Try things out as you learn",
-          "See how AI gets smarter at each step"
+          "5 progressive levels of AI capability",
+          "One consistent use case: Travel Planning Assistant",
+          "Watch the same problem solved at each level",
+          "Understand how AI capabilities compound over time"
         ],
         useCase: {
-          title: "🌍 What you'll build:",
-          description: "You'll make a travel planner that gets better and smarter as you learn new things.",
-          scenario: "Goal: By the end, you'll know how to make your own smart AI apps."
+          title: "🌍 Our Journey: Building a Travel Planning Assistant",
+          description: "Throughout this tutorial, we'll build the same feature - helping users plan a trip to Tokyo - but watch how it evolves from simple data fetching to a fully autonomous AI assistant.",
+          scenario: "User Goal: 'I want to plan a 5-day trip to Tokyo in December'"
         }
       }
     },
@@ -828,68 +785,80 @@ Memory stored for future trips:
     }
   };
 
-  // Helper: fade-only for first two slides
-  const isFirstOrSecond = currentSlide === 0 || currentSlide === 1;
   return (
-    <div className="relative min-h-screen md:p-8 overflow-x-hidden">
-      {/* Animated Gradient Background */}
-      <div className="absolute inset-0 -z-10 animate-gradient bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-purple-900 via-pink-900/80 to-slate-900 opacity-90" />
-      {/* Floating Shapes */}
-      <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 z-0 w-[600px] h-[600px] opacity-30 blur-2xl animate-float-slow" style={{background: 'radial-gradient(circle at 60% 40%, #e0aaff 0%, transparent 70%)'}} />
-      <div className="pointer-events-none absolute bottom-0 right-0 z-0 w-[400px] h-[400px] opacity-20 blur-2xl animate-float" style={{background: 'radial-gradient(circle at 40% 60%, #ffd6e0 0%, transparent 70%)'}} />
-      {/* Fixed Educational Banner for Mobile */}
-      <div className="fixed top-0 left-0 right-0 z-[60] w-full">
-        <div className="bg-gradient-to-r from-yellow-400/90 to-pink-400/90 text-slate-900 font-semibold text-center py-1.5 px-2 shadow-md border-b border-yellow-300/60">
-          <span className="inline-flex items-center gap-2 justify-center text-xs sm:text-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-pink-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M12 20c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8z" /></svg>
-            <span>
-              <span className="font-bold">Agentic AI Course:</span> Step-by-step, hands-on learning. Build agentic AI apps as you go!
-            </span>
-          </span>
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 md:p-8">
+      {/* Contact Banner */}
+      <ContactBanner />
+      
+      {/* Mobile App-like Header (Fixed) */}
+      <div className="md:hidden fixed top-[40px] left-0 right-0 z-40 bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-4 shadow-xl">
+        <div className="flex items-center justify-between">
+          <button
+            onClick={() => setActiveTab('api')}
+            className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shadow-lg active:scale-95 transition-transform"
+          >
+            <Home className="w-5 h-5 text-white" />
+          </button>
+          <div className="flex-1 mx-3">
+            <h1 className="text-base font-bold text-white">Agentic AI Journey</h1>
+            <p className="text-xs text-purple-100">Level {currentSlide + 1} of {totalSlides}</p>
+          </div>
+          <div className={`w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shadow-lg`}>
+            <currentSlideData.icon className="w-6 h-6 text-white" />
+          </div>
+        </div>
+        
+        {/* Progress Bar */}
+        <div className="mt-3 w-full h-1.5 bg-white/20 rounded-full overflow-hidden">
+          <motion.div 
+            className="h-full bg-white rounded-full"
+            initial={{ width: 0 }}
+            animate={{ width: `${((currentSlide + 1) / totalSlides) * 100}%` }}
+            transition={{ duration: 0.3 }}
+          />
         </div>
       </div>
 
       {/* Desktop Header */}
       <div className="hidden md:block max-w-6xl mx-auto mb-8">
-        <h1 className="text-4xl lg:text-5xl font-bold text-white mb-2 text-center drop-shadow-[0_2px_24px_rgba(168,85,247,0.45)] animate-fade-in">
+        <h1 className="text-4xl lg:text-5xl font-bold text-white mb-2 text-center">
           The Agentic AI Journey
         </h1>
-        <p className="text-purple-200 text-center text-lg animate-fade-in delay-150">
+        <p className="text-purple-200 text-center text-lg">
           Interactive Learning Experience
         </p>
       </div>
 
       {/* Main Slide Area - Mobile App Style */}
       <div className="md:max-w-6xl md:mx-auto">
-        <div className="md:hidden pb-14 px-0 flex flex-col">
+        <div className="md:hidden pt-24 pb-24 px-0">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
-              initial={isFirstOrSecond ? { opacity: 0 } : { opacity: 0, x: 100 }}
-              animate={isFirstOrSecond ? { opacity: 1 } : { opacity: 1, x: 0 }}
-              exit={isFirstOrSecond ? { opacity: 0 } : { opacity: 0, x: -100 }}
-              transition={{ duration: isFirstOrSecond ? 0.18 : 0.25, ease: "easeOut" }}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -100 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
               onTouchStart={onTouchStart}
               onTouchMove={onTouchMove}
               onTouchEnd={onTouchEnd}
-              className="bg-white min-h-[calc(100vh-12rem)] rounded-t-[2rem] shadow-2xl touch-pan-y select-none overflow-hidden flex flex-col"
-              style={{ marginTop: '12px' }}
+              className="bg-white min-h-[calc(100vh-12rem)] rounded-t-[2rem] shadow-2xl touch-pan-y select-none overflow-hidden"
             >
               {/* Mobile Slide Header */}
-              <div className={`bg-gradient-to-r ${currentSlideData.color} px-4 py-4 rounded-t-[2rem] flex flex-col items-center`}> 
+              <div className={`bg-gradient-to-r ${currentSlideData.color} px-5 py-6 rounded-t-[2rem]`}>
                 <div className="text-xs font-bold text-white/80 uppercase tracking-wider mb-1">
                   {currentSlideData.level}
                 </div>
-                <h2 className="text-2xl font-bold text-white mb-1 text-center">
+                <h2 className="text-2xl font-bold text-white mb-1">
                   {currentSlideData.title}
                 </h2>
-                <p className="text-white/90 text-sm text-center">
+                <p className="text-white/90 text-sm">
                   {currentSlideData.subtitle}
                 </p>
               </div>
 
               {/* Mobile Slide Content */}
-              <div className="px-4 py-4 bg-white text-gray-900 overflow-y-auto max-h-[calc(100vh-16rem)] flex-1 flex flex-col items-center justify-start">
+              <div className="px-5 py-6 bg-white text-gray-900 overflow-y-auto max-h-[calc(100vh-20rem)]">
                 <SlideContent content={currentSlideData.content} color={currentSlideData.color} setActiveTab={setActiveTab} mobile={true} />
               </div>
             </motion.div>
@@ -901,10 +870,10 @@ Memory stored for future trips:
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
-              initial={isFirstOrSecond ? { opacity: 0 } : { opacity: 0, x: 100 }}
-              animate={isFirstOrSecond ? { opacity: 1 } : { opacity: 1, x: 0 }}
-              exit={isFirstOrSecond ? { opacity: 0 } : { opacity: 0, x: -100 }}
-              transition={{ duration: isFirstOrSecond ? 0.18 : 0.3 }}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -100 }}
+              transition={{ duration: 0.3 }}
               className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 lg:p-12 border border-white/20 shadow-2xl"
             >
               {/* Desktop Slide Header */}
@@ -981,7 +950,7 @@ Memory stored for future trips:
       </div>
 
       {/* Mobile Bottom Navigation */}
-  <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-2 shadow-2xl z-50">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-4 shadow-2xl z-50">
         <div className="flex items-center justify-between gap-3">
           <button
             onClick={prevSlide}
@@ -1028,7 +997,6 @@ Memory stored for future trips:
 };
 
 // Slide Content Component
-import { useRef } from 'react';
 const SlideContent = ({ content, color, setActiveTab, mobile = false }) => {
   const mobileStyles = mobile ? {
     text: "text-gray-800",
@@ -1044,117 +1012,43 @@ const SlideContent = ({ content, color, setActiveTab, mobile = false }) => {
     code: "bg-slate-950/50 text-green-400 border-white/10"
   };
 
-  // Typewriter effect for intro description (mobile only, first slide)
-  const [typed, setTyped] = useState(mobile && content.type === 'intro' ? '' : content.description);
-  const typingIndex = useRef(0);
-  useEffect(() => {
-    if (mobile && content.type === 'intro') {
-      setTyped('');
-      typingIndex.current = 0;
-      const interval = setInterval(() => {
-        setTyped((prev) => {
-          if (typingIndex.current < content.description.length) {
-            const next = content.description.slice(0, typingIndex.current + 1);
-            typingIndex.current++;
-            return next;
-          } else {
-            clearInterval(interval);
-            return prev;
-          }
-        });
-      }, 18);
-      return () => clearInterval(interval);
-    } else {
-      setTyped(content.description);
-    }
-  }, [content.description, mobile, content.type]);
-
   if (content.type === 'intro') {
-    // Glassmorphism and geometric arrangement for first slide (Course Agenda)
-    const isFirstSlide = content.agenda && content.audience;
     return (
-      <div className="space-y-4 sm:space-y-6 w-full">
-        <p className={`text-base leading-relaxed ${mobile ? 'text-gray-700' : 'text-gray-900 md:text-lg font-semibold'} animate-fade-in`}>
-          {typed}
-          {mobile && typed.length < content.description.length && <span className="animate-pulse">|</span>}
+      <div className="space-y-4 sm:space-y-6">
+        <p className={`text-base leading-relaxed ${mobile ? 'text-gray-700' : 'text-white/90 md:text-lg'}`}>
+          {content.description}
         </p>
-        {isFirstSlide ? (
-          <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-4 md:mt-8">
-            {/* Agenda Card */}
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              className="relative backdrop-blur-3xl bg-white/60 border border-purple-200/80 shadow-2xl rounded-3xl p-6 md:p-10 flex flex-col items-start glass-card transition-all hover:scale-[1.035] hover:shadow-[0_8px_48px_rgba(168,85,247,0.18)] group overflow-hidden"
-            >
-              <div className="absolute -top-6 -right-6 w-20 h-20 bg-gradient-to-br from-purple-400/30 to-pink-300/20 rounded-full blur-2xl z-0 animate-float" />
-              <div className="relative z-10 flex items-center gap-2 mb-3">
-                <svg className="w-7 h-7 text-purple-500 drop-shadow-lg" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" /></svg>
-                <h3 className="font-bold text-purple-800 text-lg md:text-xl tracking-wide">Course Agenda</h3>
-              </div>
-              <ul className="list-disc pl-5 text-base md:text-lg text-gray-900 space-y-1 relative z-10 font-medium">
-                {content.agenda.map((item, idx) => (
-                  <li key={idx}>{item}</li>
-                ))}
-              </ul>
-            </motion.div>
-            {/* Audience Card */}
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.25 }}
-              className="relative backdrop-blur-3xl bg-white/60 border border-yellow-200/80 shadow-2xl rounded-3xl p-6 md:p-10 flex flex-col items-start glass-card transition-all hover:scale-[1.035] hover:shadow-[0_8px_48px_rgba(251,191,36,0.14)] group overflow-hidden"
-            >
-              <div className="absolute -top-6 -left-6 w-20 h-20 bg-gradient-to-br from-yellow-300/30 to-pink-200/20 rounded-full blur-2xl z-0 animate-float" />
-              <div className="relative z-10 flex items-center gap-2 mb-3">
-                <svg className="w-7 h-7 text-yellow-500 drop-shadow-lg" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4M12 8h.01" /></svg>
-                <h3 className="font-bold text-yellow-800 text-lg md:text-xl tracking-wide">Who is this for?</h3>
-              </div>
-              <ul className="list-disc pl-5 text-base md:text-lg text-gray-900 space-y-1 relative z-10 font-medium">
-                {content.audience.map((item, idx) => (
-                  <li key={idx}>{item}</li>
-                ))}
-              </ul>
-            </motion.div>
-          </div>
-        ) : null}
-        {/* Key Points as geometric glassmorphic cards */}
-        <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-4 sm:mt-6 md:mt-8">
-          {content.keyPoints.map((point, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 + index * 0.08, duration: 0.6 }}
-              className="flex items-start gap-2 sm:gap-3 backdrop-blur-xl bg-white/50 border border-white/40 shadow-lg p-4 sm:p-5 rounded-2xl glass-card hover:scale-105 transition-transform"
-            >
-              <div className={`mt-1 w-2 h-2 flex-shrink-0 rounded-full bg-gradient-to-r ${color}`} />
-              <span className="text-gray-900 text-base sm:text-lg font-semibold">{point}</span>
-            </motion.div>
-          ))}
-        </div>
-        {/* Use case card if present */}
+        
         {content.useCase && (
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.6 }}
-            className="backdrop-blur-3xl bg-white/60 border border-pink-200/80 shadow-2xl rounded-3xl p-6 md:p-10 flex flex-col items-start glass-card mt-4 transition-all overflow-hidden relative"
-          >
-            <div className="absolute -bottom-6 right-0 w-24 h-24 bg-gradient-to-br from-pink-300/30 to-purple-200/20 rounded-full blur-2xl z-0 animate-float" />
-            <h3 className="text-xl md:text-2xl font-bold text-pink-800 mb-2 flex items-center gap-2 relative z-10">
+          <div className={`${mobileStyles.highlight} p-4 md:p-6 rounded-2xl border ${mobile ? 'shadow-md' : ''}`}>
+            <h3 className={`text-lg md:text-xl font-bold ${mobileStyles.heading} mb-2 flex items-center gap-2`}>
               {content.useCase.title}
             </h3>
-            <p className="text-gray-900 text-base md:text-lg mb-3 relative z-10 font-medium">
+            <p className={`${mobile ? 'text-gray-600' : 'text-white/80'} text-sm md:text-base mb-3`}>
               {content.useCase.description}
             </p>
-            <div className="bg-white/70 p-3 md:p-4 rounded-xl border border-pink-200/40 shadow-sm relative z-10">
-              <p className="text-pink-800 font-semibold text-base md:text-lg">
+            <div className={`${mobile ? 'bg-white' : 'bg-white/10'} p-3 md:p-4 rounded-xl border ${mobile ? 'border-gray-200 shadow-sm' : 'border-white/20'}`}>
+              <p className={`${mobile ? 'text-purple-700' : 'text-yellow-300'} font-semibold text-sm md:text-base`}>
                 {content.useCase.scenario}
               </p>
             </div>
-          </motion.div>
+          </div>
         )}
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-4 sm:mt-6 md:mt-8">
+          {content.keyPoints.map((point, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              className={`flex items-start gap-2 sm:gap-3 ${mobileStyles.card} p-3 sm:p-4 rounded-xl ${mobile ? 'shadow-sm' : ''}`}
+            >
+              <div className={`mt-1 w-2 h-2 flex-shrink-0 rounded-full bg-gradient-to-r ${color}`} />
+              <span className={`${mobileStyles.text} text-sm sm:text-base`}>{point}</span>
+            </motion.div>
+          ))}
+        </div>
       </div>
     );
   }

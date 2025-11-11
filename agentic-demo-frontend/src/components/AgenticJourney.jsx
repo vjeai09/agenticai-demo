@@ -80,15 +80,10 @@ const AgenticJourney = ({ setActiveTab }) => {
         type: "intro",
         description: "This course will show you, step by step, how to build smart AI apps. You'll start simple and add more features as you go. We'll use a travel planner example, so you can see how things work in real life.",
         agenda: null,
-        keyPoints: [
-          "5 short, easy lessons",
-          "One simple project: a travel planner",
-          "Try things out as you learn",
-          "See how AI gets smarter at each step"
-        ],
+        keyPoints: [],
         useCase: {
           title: "🌍 What you'll build:",
-          description: "You'll make a travel planner that gets better and smarter as you learn new things.",
+          description: "A travel planner that gets smarter as you learn.",
           scenario: "Goal: By the end, you'll know how to make your own smart AI apps."
         }
       }

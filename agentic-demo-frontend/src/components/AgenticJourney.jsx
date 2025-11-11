@@ -1,3 +1,14 @@
+      {/* Fixed Educational Banner for Mobile */}
+      <div className="fixed top-0 left-0 right-0 z-[60] w-full">
+        <div className="bg-gradient-to-r from-yellow-400/90 to-pink-400/90 text-slate-900 font-semibold text-center py-1.5 px-2 shadow-md border-b border-yellow-300/60">
+          <span className="inline-flex items-center gap-2 justify-center text-xs sm:text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-pink-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M12 20c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8z" /></svg>
+            <span>
+              <span className="font-bold">Agentic AI Course:</span> Step-by-step, hands-on learning. Build agentic AI apps as you go!
+            </span>
+          </span>
+        </div>
+      </div>
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from 'framer-motion';
 import { 
@@ -34,24 +45,56 @@ const AgenticJourney = ({ setActiveTab }) => {
 
   const slides = [
     {
-      level: "Welcome",
-      title: "The Journey to Agentic AI",
-      subtitle: "From Simple APIs to Intelligent Autonomous Agents",
+      level: "Course Agenda",
+      title: "What You'll Learn in This Course",
+      subtitle: "Your roadmap from APIs to AI agents and beyond",
       icon: Brain,
       color: "from-purple-500 to-pink-500",
       content: {
         type: "intro",
-        description: "Discover how AI systems evolve from basic request-response patterns to intelligent, autonomous agents that can think, plan, and act independently.",
+        description: "Here's what we'll cover together, step by step:",
+        agenda: [
+          "Start with simple APIs",
+          "Add AI and data science features",
+          "Use your own data (RAG)",
+          "Build AI agents that use tools",
+          "Work with multiple models",
+          "See how to run on multi-cloud"
+        ],
+        audience: [
+          "Beginners: No AI experience needed!",
+          "Developers: See real code and hands-on demos.",
+          "Business folks: Understand how agentic AI can help your work."
+        ],
         keyPoints: [
-          "5 progressive levels of AI capability",
-          "One consistent use case: Travel Planning Assistant",
-          "Watch the same problem solved at each level",
-          "Understand how AI capabilities compound over time"
+          "5 short, easy lessons",
+          "One simple project: a travel planner",
+          "Try things out as you learn",
+          "See how AI gets smarter at each step"
+        ],
+        useCase: null
+      }
+    },
+    {
+      level: "Course Intro",
+      title: "Let's Get Started!",
+      subtitle: "Build a smart travel planner, step by step",
+      icon: Brain,
+      color: "from-purple-500 to-pink-500",
+      content: {
+        type: "intro",
+        description: "This course will show you, step by step, how to build smart AI apps. You'll start simple and add more features as you go. We'll use a travel planner example, so you can see how things work in real life.",
+        agenda: null,
+        keyPoints: [
+          "5 short, easy lessons",
+          "One simple project: a travel planner",
+          "Try things out as you learn",
+          "See how AI gets smarter at each step"
         ],
         useCase: {
-          title: "🌍 Our Journey: Building a Travel Planning Assistant",
-          description: "Throughout this tutorial, we'll build the same feature - helping users plan a trip to Tokyo - but watch how it evolves from simple data fetching to a fully autonomous AI assistant.",
-          scenario: "User Goal: 'I want to plan a 5-day trip to Tokyo in December'"
+          title: "🌍 What you'll build:",
+          description: "You'll make a travel planner that gets better and smarter as you learn new things.",
+          scenario: "Goal: By the end, you'll know how to make your own smart AI apps."
         }
       }
     },
@@ -787,35 +830,15 @@ Memory stored for future trips:
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 md:p-8">
-      {/* Contact Banner */}
-      <ContactBanner />
-      
-      {/* Mobile App-like Header (Fixed) */}
-      <div className="md:hidden fixed top-[40px] left-0 right-0 z-40 bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-4 shadow-xl">
-        <div className="flex items-center justify-between">
-          <button
-            onClick={() => setActiveTab('api')}
-            className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shadow-lg active:scale-95 transition-transform"
-          >
-            <Home className="w-5 h-5 text-white" />
-          </button>
-          <div className="flex-1 mx-3">
-            <h1 className="text-base font-bold text-white">Agentic AI Journey</h1>
-            <p className="text-xs text-purple-100">Level {currentSlide + 1} of {totalSlides}</p>
-          </div>
-          <div className={`w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shadow-lg`}>
-            <currentSlideData.icon className="w-6 h-6 text-white" />
-          </div>
-        </div>
-        
-        {/* Progress Bar */}
-        <div className="mt-3 w-full h-1.5 bg-white/20 rounded-full overflow-hidden">
-          <motion.div 
-            className="h-full bg-white rounded-full"
-            initial={{ width: 0 }}
-            animate={{ width: `${((currentSlide + 1) / totalSlides) * 100}%` }}
-            transition={{ duration: 0.3 }}
-          />
+      {/* Fixed Educational Banner for Mobile */}
+      <div className="fixed top-0 left-0 right-0 z-[60] w-full">
+        <div className="bg-gradient-to-r from-yellow-400/90 to-pink-400/90 text-slate-900 font-semibold text-center py-1.5 px-2 shadow-md border-b border-yellow-300/60">
+          <span className="inline-flex items-center gap-2 justify-center text-xs sm:text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-pink-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M12 20c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8z" /></svg>
+            <span>
+              <span className="font-bold">Agentic AI Course:</span> Step-by-step, hands-on learning. Build agentic AI apps as you go!
+            </span>
+          </span>
         </div>
       </div>
 
@@ -831,7 +854,7 @@ Memory stored for future trips:
 
       {/* Main Slide Area - Mobile App Style */}
       <div className="md:max-w-6xl md:mx-auto">
-        <div className="md:hidden pt-24 pb-24 px-0">
+  <div className="md:hidden pb-14 px-0 flex flex-col">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
@@ -842,23 +865,24 @@ Memory stored for future trips:
               onTouchStart={onTouchStart}
               onTouchMove={onTouchMove}
               onTouchEnd={onTouchEnd}
-              className="bg-white min-h-[calc(100vh-12rem)] rounded-t-[2rem] shadow-2xl touch-pan-y select-none overflow-hidden"
+              className="bg-white min-h-[calc(100vh-12rem)] rounded-t-[2rem] shadow-2xl touch-pan-y select-none overflow-hidden flex flex-col"
+              style={{ marginTop: '12px' }}
             >
               {/* Mobile Slide Header */}
-              <div className={`bg-gradient-to-r ${currentSlideData.color} px-5 py-6 rounded-t-[2rem]`}>
+              <div className={`bg-gradient-to-r ${currentSlideData.color} px-4 py-4 rounded-t-[2rem] flex flex-col items-center`}> 
                 <div className="text-xs font-bold text-white/80 uppercase tracking-wider mb-1">
                   {currentSlideData.level}
                 </div>
-                <h2 className="text-2xl font-bold text-white mb-1">
+                <h2 className="text-2xl font-bold text-white mb-1 text-center">
                   {currentSlideData.title}
                 </h2>
-                <p className="text-white/90 text-sm">
+                <p className="text-white/90 text-sm text-center">
                   {currentSlideData.subtitle}
                 </p>
               </div>
 
               {/* Mobile Slide Content */}
-              <div className="px-5 py-6 bg-white text-gray-900 overflow-y-auto max-h-[calc(100vh-20rem)]">
+              <div className="px-4 py-4 bg-white text-gray-900 overflow-y-auto max-h-[calc(100vh-16rem)] flex-1 flex flex-col items-center justify-start">
                 <SlideContent content={currentSlideData.content} color={currentSlideData.color} setActiveTab={setActiveTab} mobile={true} />
               </div>
             </motion.div>
@@ -950,7 +974,7 @@ Memory stored for future trips:
       </div>
 
       {/* Mobile Bottom Navigation */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-4 shadow-2xl z-50">
+  <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-2 shadow-2xl z-50">
         <div className="flex items-center justify-between gap-3">
           <button
             onClick={prevSlide}
@@ -997,6 +1021,7 @@ Memory stored for future trips:
 };
 
 // Slide Content Component
+import { useRef } from 'react';
 const SlideContent = ({ content, color, setActiveTab, mobile = false }) => {
   const mobileStyles = mobile ? {
     text: "text-gray-800",
@@ -1012,13 +1037,58 @@ const SlideContent = ({ content, color, setActiveTab, mobile = false }) => {
     code: "bg-slate-950/50 text-green-400 border-white/10"
   };
 
+  // Typewriter effect for intro description (mobile only, first slide)
+  const [typed, setTyped] = useState(mobile && content.type === 'intro' ? '' : content.description);
+  const typingIndex = useRef(0);
+  useEffect(() => {
+    if (mobile && content.type === 'intro') {
+      setTyped('');
+      typingIndex.current = 0;
+      const interval = setInterval(() => {
+        setTyped((prev) => {
+          if (typingIndex.current < content.description.length) {
+            const next = content.description.slice(0, typingIndex.current + 1);
+            typingIndex.current++;
+            return next;
+          } else {
+            clearInterval(interval);
+            return prev;
+          }
+        });
+      }, 18);
+      return () => clearInterval(interval);
+    } else {
+      setTyped(content.description);
+    }
+  }, [content.description, mobile, content.type]);
+
   if (content.type === 'intro') {
     return (
       <div className="space-y-4 sm:space-y-6">
         <p className={`text-base leading-relaxed ${mobile ? 'text-gray-700' : 'text-white/90 md:text-lg'}`}>
-          {content.description}
+          {typed}
+          {mobile && typed.length < content.description.length && <span className="animate-pulse">|</span>}
         </p>
-        
+        {content.agenda && (
+          <div className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-xl p-3 md:p-4 mb-2">
+            <h3 className="font-bold text-purple-700 mb-2 text-sm md:text-base">Course Agenda</h3>
+            <ul className="list-disc pl-5 text-xs md:text-base text-gray-700 space-y-1">
+              {content.agenda.map((item, idx) => (
+                <li key={idx}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {content.audience && (
+          <div className="bg-gradient-to-r from-yellow-50 to-pink-50 border border-yellow-200 rounded-xl p-3 md:p-4 mb-2">
+            <h3 className="font-bold text-yellow-700 mb-2 text-sm md:text-base">Who is this for?</h3>
+            <ul className="list-disc pl-5 text-xs md:text-base text-gray-700 space-y-1">
+              {content.audience.map((item, idx) => (
+                <li key={idx}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        )}
         {content.useCase && (
           <div className={`${mobileStyles.highlight} p-4 md:p-6 rounded-2xl border ${mobile ? 'shadow-md' : ''}`}>
             <h3 className={`text-lg md:text-xl font-bold ${mobileStyles.heading} mb-2 flex items-center gap-2`}>
@@ -1034,7 +1104,6 @@ const SlideContent = ({ content, color, setActiveTab, mobile = false }) => {
             </div>
           </div>
         )}
-        
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-4 sm:mt-6 md:mt-8">
           {content.keyPoints.map((point, index) => (
             <motion.div

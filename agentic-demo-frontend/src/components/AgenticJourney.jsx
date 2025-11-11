@@ -829,7 +829,12 @@ Memory stored for future trips:
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 md:p-8">
+    <div className="relative min-h-screen md:p-8 overflow-x-hidden">
+      {/* Animated Gradient Background */}
+      <div className="absolute inset-0 -z-10 animate-gradient bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-purple-900 via-pink-900/80 to-slate-900 opacity-90" />
+      {/* Floating Shapes */}
+      <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 z-0 w-[600px] h-[600px] opacity-30 blur-2xl animate-float-slow" style={{background: 'radial-gradient(circle at 60% 40%, #e0aaff 0%, transparent 70%)'}} />
+      <div className="pointer-events-none absolute bottom-0 right-0 z-0 w-[400px] h-[400px] opacity-20 blur-2xl animate-float" style={{background: 'radial-gradient(circle at 40% 60%, #ffd6e0 0%, transparent 70%)'}} />
       {/* Fixed Educational Banner for Mobile */}
       <div className="fixed top-0 left-0 right-0 z-[60] w-full">
         <div className="bg-gradient-to-r from-yellow-400/90 to-pink-400/90 text-slate-900 font-semibold text-center py-1.5 px-2 shadow-md border-b border-yellow-300/60">
@@ -844,10 +849,10 @@ Memory stored for future trips:
 
       {/* Desktop Header */}
       <div className="hidden md:block max-w-6xl mx-auto mb-8">
-        <h1 className="text-4xl lg:text-5xl font-bold text-white mb-2 text-center">
+        <h1 className="text-4xl lg:text-5xl font-bold text-white mb-2 text-center drop-shadow-[0_2px_24px_rgba(168,85,247,0.45)] animate-fade-in">
           The Agentic AI Journey
         </h1>
-        <p className="text-purple-200 text-center text-lg">
+        <p className="text-purple-200 text-center text-lg animate-fade-in delay-150">
           Interactive Learning Experience
         </p>
       </div>
@@ -1063,61 +1068,91 @@ const SlideContent = ({ content, color, setActiveTab, mobile = false }) => {
   }, [content.description, mobile, content.type]);
 
   if (content.type === 'intro') {
+    // Glassmorphism and geometric arrangement for first slide (Course Agenda)
+    const isFirstSlide = content.agenda && content.audience;
     return (
-      <div className="space-y-4 sm:space-y-6">
-        <p className={`text-base leading-relaxed ${mobile ? 'text-gray-700' : 'text-white/90 md:text-lg'}`}>
+      <div className="space-y-4 sm:space-y-6 w-full">
+        <p className={`text-base leading-relaxed ${mobile ? 'text-gray-700' : 'text-white/90 md:text-lg'} animate-fade-in`}>
           {typed}
           {mobile && typed.length < content.description.length && <span className="animate-pulse">|</span>}
         </p>
-        {content.agenda && (
-          <div className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-xl p-3 md:p-4 mb-2">
-            <h3 className="font-bold text-purple-700 mb-2 text-sm md:text-base">Course Agenda</h3>
-            <ul className="list-disc pl-5 text-xs md:text-base text-gray-700 space-y-1">
-              {content.agenda.map((item, idx) => (
-                <li key={idx}>{item}</li>
-              ))}
-            </ul>
+        {isFirstSlide ? (
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-4 md:mt-8">
+            {/* Agenda Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="relative backdrop-blur-2xl bg-white/30 border border-purple-200/60 shadow-2xl rounded-3xl p-6 md:p-10 flex flex-col items-start glass-card transition-all hover:scale-[1.035] hover:shadow-[0_8px_48px_rgba(168,85,247,0.18)] group overflow-hidden"
+            >
+              <div className="absolute -top-6 -right-6 w-20 h-20 bg-gradient-to-br from-purple-400/30 to-pink-300/20 rounded-full blur-2xl z-0 animate-float" />
+              <div className="relative z-10 flex items-center gap-2 mb-3">
+                <svg className="w-7 h-7 text-purple-500 drop-shadow-lg" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" /></svg>
+                <h3 className="font-bold text-purple-700 text-lg md:text-xl tracking-wide">Course Agenda</h3>
+              </div>
+              <ul className="list-disc pl-5 text-base md:text-lg text-gray-800/90 space-y-1 relative z-10">
+                {content.agenda.map((item, idx) => (
+                  <li key={idx}>{item}</li>
+                ))}
+              </ul>
+            </motion.div>
+            {/* Audience Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.25 }}
+              className="relative backdrop-blur-2xl bg-white/30 border border-yellow-200/60 shadow-2xl rounded-3xl p-6 md:p-10 flex flex-col items-start glass-card transition-all hover:scale-[1.035] hover:shadow-[0_8px_48px_rgba(251,191,36,0.14)] group overflow-hidden"
+            >
+              <div className="absolute -top-6 -left-6 w-20 h-20 bg-gradient-to-br from-yellow-300/30 to-pink-200/20 rounded-full blur-2xl z-0 animate-float" />
+              <div className="relative z-10 flex items-center gap-2 mb-3">
+                <svg className="w-7 h-7 text-yellow-500 drop-shadow-lg" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4M12 8h.01" /></svg>
+                <h3 className="font-bold text-yellow-700 text-lg md:text-xl tracking-wide">Who is this for?</h3>
+              </div>
+              <ul className="list-disc pl-5 text-base md:text-lg text-gray-800/90 space-y-1 relative z-10">
+                {content.audience.map((item, idx) => (
+                  <li key={idx}>{item}</li>
+                ))}
+              </ul>
+            </motion.div>
           </div>
-        )}
-        {content.audience && (
-          <div className="bg-gradient-to-r from-yellow-50 to-pink-50 border border-yellow-200 rounded-xl p-3 md:p-4 mb-2">
-            <h3 className="font-bold text-yellow-700 mb-2 text-sm md:text-base">Who is this for?</h3>
-            <ul className="list-disc pl-5 text-xs md:text-base text-gray-700 space-y-1">
-              {content.audience.map((item, idx) => (
-                <li key={idx}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-        {content.useCase && (
-          <div className={`${mobileStyles.highlight} p-4 md:p-6 rounded-2xl border ${mobile ? 'shadow-md' : ''}`}>
-            <h3 className={`text-lg md:text-xl font-bold ${mobileStyles.heading} mb-2 flex items-center gap-2`}>
-              {content.useCase.title}
-            </h3>
-            <p className={`${mobile ? 'text-gray-600' : 'text-white/80'} text-sm md:text-base mb-3`}>
-              {content.useCase.description}
-            </p>
-            <div className={`${mobile ? 'bg-white' : 'bg-white/10'} p-3 md:p-4 rounded-xl border ${mobile ? 'border-gray-200 shadow-sm' : 'border-white/20'}`}>
-              <p className={`${mobile ? 'text-purple-700' : 'text-yellow-300'} font-semibold text-sm md:text-base`}>
-                {content.useCase.scenario}
-              </p>
-            </div>
-          </div>
-        )}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-4 sm:mt-6 md:mt-8">
+        ) : null}
+        {/* Key Points as geometric glassmorphic cards */}
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-4 sm:mt-6 md:mt-8">
           {content.keyPoints.map((point, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className={`flex items-start gap-2 sm:gap-3 ${mobileStyles.card} p-3 sm:p-4 rounded-xl ${mobile ? 'shadow-sm' : ''}`}
+              transition={{ delay: 0.4 + index * 0.08, duration: 0.6 }}
+              className="flex items-start gap-2 sm:gap-3 backdrop-blur-xl bg-white/25 border border-white/30 shadow-lg p-4 sm:p-5 rounded-2xl glass-card hover:scale-105 transition-transform"
             >
               <div className={`mt-1 w-2 h-2 flex-shrink-0 rounded-full bg-gradient-to-r ${color}`} />
-              <span className={`${mobileStyles.text} text-sm sm:text-base`}>{point}</span>
+              <span className="text-gray-900 text-base sm:text-lg font-medium">{point}</span>
             </motion.div>
           ))}
         </div>
+        {/* Use case card if present */}
+        {content.useCase && (
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.6 }}
+            className="backdrop-blur-2xl bg-white/30 border border-pink-200/60 shadow-2xl rounded-3xl p-6 md:p-10 flex flex-col items-start glass-card mt-4 transition-all overflow-hidden relative"
+          >
+            <div className="absolute -bottom-6 right-0 w-24 h-24 bg-gradient-to-br from-pink-300/30 to-purple-200/20 rounded-full blur-2xl z-0 animate-float" />
+            <h3 className="text-xl md:text-2xl font-bold text-pink-700 mb-2 flex items-center gap-2 relative z-10">
+              {content.useCase.title}
+            </h3>
+            <p className="text-gray-700 text-base md:text-lg mb-3 relative z-10">
+              {content.useCase.description}
+            </p>
+            <div className="bg-white/40 p-3 md:p-4 rounded-xl border border-pink-200/40 shadow-sm relative z-10">
+              <p className="text-pink-700 font-semibold text-base md:text-lg">
+                {content.useCase.scenario}
+              </p>
+            </div>
+          </motion.div>
+        )}
       </div>
     );
   }

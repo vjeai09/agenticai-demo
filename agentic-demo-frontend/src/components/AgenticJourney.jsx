@@ -66,12 +66,7 @@ const AgenticJourney = ({ setActiveTab }) => {
           "Developers: See real code and hands-on demos.",
           "Business folks: Understand how agentic AI can help your work."
         ],
-        keyPoints: [
-          "5 short, easy lessons",
-          "One simple project: a travel planner",
-          "Try things out as you learn",
-          "See how AI gets smarter at each step"
-        ],
+        keyPoints: [],
         useCase: null
       }
     },

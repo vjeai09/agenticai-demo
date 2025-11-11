@@ -828,8 +828,7 @@ Memory stored for future trips:
     }
   };
 
-  // Helper: fade-only for first two slides
-  const isFirstOrSecond = currentSlide === 0 || currentSlide === 1;
+  // Always use crossfade for seamless transitions
   return (
     <div className="relative min-h-screen md:p-8 overflow-x-hidden">
       {/* Animated Gradient Background */}
@@ -861,18 +860,18 @@ Memory stored for future trips:
 
       {/* Main Slide Area - Mobile App Style */}
       <div className="md:max-w-6xl md:mx-auto">
-        <div className="md:hidden pb-14 px-0 flex flex-col">
-          <AnimatePresence mode="wait">
+        <div className="md:hidden pb-14 px-0 flex flex-col relative min-h-[calc(100vh-12rem)]">
+          <AnimatePresence mode="sync">
             <motion.div
               key={currentSlide}
-              initial={isFirstOrSecond ? { opacity: 0 } : { opacity: 0, x: 100 }}
-              animate={isFirstOrSecond ? { opacity: 1 } : { opacity: 1, x: 0 }}
-              exit={isFirstOrSecond ? { opacity: 0 } : { opacity: 0, x: -100 }}
-              transition={{ duration: isFirstOrSecond ? 0.18 : 0.25, ease: "easeOut" }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.22, ease: "easeInOut" }}
               onTouchStart={onTouchStart}
               onTouchMove={onTouchMove}
               onTouchEnd={onTouchEnd}
-              className="bg-white min-h-[calc(100vh-12rem)] rounded-t-[2rem] shadow-2xl touch-pan-y select-none overflow-hidden flex flex-col"
+              className="absolute inset-0 bg-white min-h-[calc(100vh-12rem)] rounded-t-[2rem] shadow-2xl touch-pan-y select-none overflow-hidden flex flex-col"
               style={{ marginTop: '12px' }}
             >
               {/* Mobile Slide Header */}
@@ -897,15 +896,15 @@ Memory stored for future trips:
         </div>
 
         {/* Desktop View (unchanged) */}
-        <div className="hidden md:block">
-          <AnimatePresence mode="wait">
+        <div className="hidden md:block relative min-h-[500px]">
+          <AnimatePresence mode="sync">
             <motion.div
               key={currentSlide}
-              initial={isFirstOrSecond ? { opacity: 0 } : { opacity: 0, x: 100 }}
-              animate={isFirstOrSecond ? { opacity: 1 } : { opacity: 1, x: 0 }}
-              exit={isFirstOrSecond ? { opacity: 0 } : { opacity: 0, x: -100 }}
-              transition={{ duration: isFirstOrSecond ? 0.18 : 0.3 }}
-              className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 lg:p-12 border border-white/20 shadow-2xl"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.22, ease: "easeInOut" }}
+              className="absolute inset-0 bg-white/10 backdrop-blur-lg rounded-3xl p-8 lg:p-12 border border-white/20 shadow-2xl"
             >
               {/* Desktop Slide Header */}
               <div className="flex items-center gap-4 mb-8">

@@ -828,6 +828,8 @@ Memory stored for future trips:
     }
   };
 
+  // Helper: fade-only for first two slides
+  const isFirstOrSecond = currentSlide === 0 || currentSlide === 1;
   return (
     <div className="relative min-h-screen md:p-8 overflow-x-hidden">
       {/* Animated Gradient Background */}
@@ -859,14 +861,14 @@ Memory stored for future trips:
 
       {/* Main Slide Area - Mobile App Style */}
       <div className="md:max-w-6xl md:mx-auto">
-  <div className="md:hidden pb-14 px-0 flex flex-col">
+        <div className="md:hidden pb-14 px-0 flex flex-col">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
-              initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -100 }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
+              initial={isFirstOrSecond ? { opacity: 0 } : { opacity: 0, x: 100 }}
+              animate={isFirstOrSecond ? { opacity: 1 } : { opacity: 1, x: 0 }}
+              exit={isFirstOrSecond ? { opacity: 0 } : { opacity: 0, x: -100 }}
+              transition={{ duration: isFirstOrSecond ? 0.18 : 0.25, ease: "easeOut" }}
               onTouchStart={onTouchStart}
               onTouchMove={onTouchMove}
               onTouchEnd={onTouchEnd}
@@ -899,10 +901,10 @@ Memory stored for future trips:
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
-              initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -100 }}
-              transition={{ duration: 0.3 }}
+              initial={isFirstOrSecond ? { opacity: 0 } : { opacity: 0, x: 100 }}
+              animate={isFirstOrSecond ? { opacity: 1 } : { opacity: 1, x: 0 }}
+              exit={isFirstOrSecond ? { opacity: 0 } : { opacity: 0, x: -100 }}
+              transition={{ duration: isFirstOrSecond ? 0.18 : 0.3 }}
               className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 lg:p-12 border border-white/20 shadow-2xl"
             >
               {/* Desktop Slide Header */}

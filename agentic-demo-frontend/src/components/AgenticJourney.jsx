@@ -23,6 +23,9 @@ const AgenticJourney = ({ setActiveTab }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [prevSlideIndex, setPrevSlideIndex] = useState(null);
+  const [slideDir, setSlideDir] = useState(0); // 1 forward, -1 backward
   
   // Minimum swipe distance (in px)
   const minSwipeDistance = 50;
@@ -745,14 +748,22 @@ Memory stored for future trips:
   const totalSlides = slides.length;
 
   const nextSlide = () => {
+    if (isAnimating) return;
     if (currentSlide < totalSlides - 1) {
+      setPrevSlideIndex(currentSlide);
+      setSlideDir(1);
       setCurrentSlide(currentSlide + 1);
+      setIsAnimating(true);
     }
   };
 
   const prevSlide = () => {
+    if (isAnimating) return;
     if (currentSlide > 0) {
+      setPrevSlideIndex(currentSlide);
+      setSlideDir(-1);
       setCurrentSlide(currentSlide - 1);
+      setIsAnimating(true);
     }
   };
 
@@ -834,19 +845,53 @@ Memory stored for future trips:
       {/* Main Slide Area - Mobile App Style */}
       <div className="md:max-w-6xl md:mx-auto">
         <div className="md:hidden pt-24 pb-24 px-0">
-          <AnimatePresence mode="wait">
+          {/* Hybrid approach: render outgoing + incoming slides simultaneously to avoid any momentary empty frames */}
+          <div
+            className={`relative w-full bg-white rounded-t-[2rem] overflow-hidden shadow-2xl touch-pan-y select-none`}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+            style={{ minHeight: 'calc(100vh - 12rem)' }}
+          >
+            {/* Previous slide (animates out) */}
+            {prevSlideIndex !== null && slides[prevSlideIndex] && (
+              <motion.div
+                key={`prev-${prevSlideIndex}`}
+                initial={{ x: '0%', opacity: 1 }}
+                animate={{ x: slideDir === 1 ? '-100%' : '100%', opacity: 0.6 }}
+                transition={typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? { duration: 0 } : { type: 'spring', stiffness: 260, damping: 28 }}
+                onAnimationStart={() => setIsAnimating(true)}
+                className="absolute inset-0 z-10 bg-white touch-pan-y select-none overflow-hidden"
+                style={{ willChange: 'transform, opacity', transform: 'translateZ(0)', WebkitTransform: 'translateZ(0)' }}
+              >
+                <div className={`bg-gradient-to-r ${slides[prevSlideIndex].color} px-5 py-6 rounded-t-[2rem]`}>
+                  <div className="text-xs font-bold text-white/80 uppercase tracking-wider mb-1">
+                    {slides[prevSlideIndex].level}
+                  </div>
+                  <h2 className="text-2xl font-bold text-white mb-1">
+                    {slides[prevSlideIndex].title}
+                  </h2>
+                  <p className="text-white/90 text-sm">
+                    {slides[prevSlideIndex].subtitle}
+                  </p>
+                </div>
+                <div className="px-5 py-6 bg-white text-gray-900 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 20rem)' }}>
+                  <SlideContent content={slides[prevSlideIndex].content} color={slides[prevSlideIndex].color} setActiveTab={setActiveTab} mobile={true} />
+                </div>
+              </motion.div>
+            )}
+
+            {/* Current slide (animates in) */}
             <motion.div
-              key={currentSlide}
-              initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -100 }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
-              onTouchStart={onTouchStart}
-              onTouchMove={onTouchMove}
-              onTouchEnd={onTouchEnd}
-              className="bg-white min-h-[calc(100vh-12rem)] rounded-t-[2rem] shadow-2xl touch-pan-y select-none overflow-hidden"
+              key={`cur-${currentSlide}`}
+              initial={prevSlideIndex === null ? { x: '0%', opacity: 1 } : (slideDir === 1 ? { x: '100%', opacity: 0.6 } : { x: '-100%', opacity: 0.6 })}
+              animate={{ x: '0%', opacity: 1 }}
+              transition={typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? { duration: 0 } : { type: 'spring', stiffness: 300, damping: 32 }}
+              onAnimationStart={() => setIsAnimating(true)}
+              onAnimationComplete={() => { setPrevSlideIndex(null); setIsAnimating(false); }}
+              className="absolute inset-0 z-20 bg-white touch-pan-y select-none overflow-hidden"
+              style={{ willChange: 'transform, opacity', transform: 'translateZ(0)', WebkitTransform: 'translateZ(0)' }}
             >
-              {/* Mobile Slide Header */}
               <div className={`bg-gradient-to-r ${currentSlideData.color} px-5 py-6 rounded-t-[2rem]`}>
                 <div className="text-xs font-bold text-white/80 uppercase tracking-wider mb-1">
                   {currentSlideData.level}
@@ -859,12 +904,11 @@ Memory stored for future trips:
                 </p>
               </div>
 
-              {/* Mobile Slide Content */}
-              <div className="px-5 py-6 bg-white text-gray-900 overflow-y-auto max-h-[calc(100vh-20rem)]">
+              <div className="px-5 py-6 bg-white text-gray-900 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 20rem)' }}>
                 <SlideContent content={currentSlideData.content} color={currentSlideData.color} setActiveTab={setActiveTab} mobile={true} />
               </div>
             </motion.div>
-          </AnimatePresence>
+          </div>
         </div>
 
         {/* Desktop View (unchanged) */}

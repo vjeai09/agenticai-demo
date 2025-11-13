@@ -819,30 +819,31 @@ Memory stored for future trips:
       <ContactBanner />
       
       {/* Mobile App-like Header (Fixed) */}
-  <div className="md:hidden fixed left-0 right-0 z-40 bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-4 shadow-xl" style={{ top: 'calc(var(--banner-h, 0px) + 12px)' }}>
-        <div className="flex items-center justify-between">
+  <div className="md:hidden fixed left-0 right-0 z-40 px-4 py-2" style={{ top: 'calc(var(--banner-h, 0px) + 8px)' }}>
+        <div className="flex items-center justify-between bg-white/6 backdrop-blur-md rounded-2xl px-3 py-2 shadow-sm">
           <button
             onClick={() => setActiveTab('api')}
-            className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shadow-lg active:scale-95 transition-transform"
+            className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center active:scale-95 transition-transform"
           >
-            <Home className="w-5 h-5 text-white" />
+            <Home className="w-4 h-4 text-white" />
           </button>
-          <div className="flex-1 mx-3">
-            <h1 className="text-base font-bold text-white">Agentic AI Journey</h1>
-            <p className="text-xs text-purple-100">Level {currentSlide + 1} of {totalSlides}</p>
+
+          <div className="flex-1 mx-3 min-w-0 text-center">
+            <h1 className="text-sm font-bold text-white truncate">Agentic AI Journey</h1>
+            <p className="text-[10px] text-white/70 mt-0.5 truncate">Level {currentSlide + 1} of {totalSlides}</p>
           </div>
-          <div className={`w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shadow-lg`}>
-            <currentSlideData.icon className="w-6 h-6 text-white" />
+
+          <div className={`w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center`}>
+            <currentSlideData.icon className="w-5 h-5 text-white" />
           </div>
         </div>
-        
-        {/* Progress Bar */}
-        <div className="mt-3 w-full h-1.5 bg-white/20 rounded-full overflow-hidden">
+        {/* small progress under header */}
+        <div className="mt-2 w-full h-1 bg-white/10 rounded-full overflow-hidden">
           <motion.div 
-            className="h-full bg-white rounded-full"
+            className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"
             initial={{ width: 0 }}
             animate={{ width: `${((currentSlide + 1) / totalSlides) * 100}%` }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.25 }}
           />
         </div>
       </div>

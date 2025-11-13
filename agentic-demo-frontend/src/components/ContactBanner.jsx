@@ -65,24 +65,7 @@ export default function ContactBanner() {
         </div>
       </div>
 
-      {/* Mobile compact banner — slim and non-intrusive */}
-      <div className="sm:hidden bg-gradient-to-r from-indigo-600 to-pink-500">
-        <div className="max-w-7xl mx-auto px-3 py-2">
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-white/10 rounded-sm flex items-center justify-center">
-                <Sparkles className="w-4 h-4 text-white" />
-              </div>
-              <div className="text-sm font-semibold text-white truncate">vjeai.tech@gmail.com</div>
-            </div>
-            <div className="flex items-center gap-2">
-              <button onClick={close} aria-label="Dismiss banner" className="p-2 rounded-md bg-white/10 inline-flex items-center justify-center">
-                <X className="w-4 h-4 text-white" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* Mobile: intentionally hide compact email banner to reduce clutter on small screens */}
     </motion.div>
   )
 }

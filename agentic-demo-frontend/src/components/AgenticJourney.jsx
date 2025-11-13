@@ -821,12 +821,14 @@ Memory stored for future trips:
 
       {/* Desktop Header */}
       <div className="hidden md:block max-w-6xl mx-auto mb-8">
-        <h1 className="text-4xl lg:text-5xl font-bold text-white mb-2 text-center">
-          The Agentic AI Journey
-        </h1>
-        <p className="text-purple-200 text-center text-lg">
-          Interactive Learning Experience
-        </p>
+        <div className="inline-block mx-auto bg-white/6 backdrop-blur-md border border-white/10 rounded-xl px-6 py-4">
+          <h1 className="text-3xl lg:text-4xl font-extrabold text-white tracking-tight uppercase text-center">
+            The Agentic AI Journey
+          </h1>
+          <p className="text-purple-200 text-center text-sm mt-1">
+            Interactive Learning Experience
+          </p>
+        </div>
       </div>
 
       {/* Main Slide Area - Mobile App Style */}

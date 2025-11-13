@@ -742,6 +742,18 @@ Memory stored for future trips:
         ]
       }
     }
+    ,
+    {
+      level: "Contact",
+      title: "Get in touch",
+      subtitle: "We'd love to hear from you",
+      icon: Mail,
+      color: "from-slate-700 to-slate-900",
+      content: {
+        type: 'contact',
+        email: 'vjeai.tech@gmail.com'
+      }
+    }
   ];
 
   const currentSlideData = slides[currentSlide];
@@ -1276,6 +1288,36 @@ const SlideContent = ({ content, color, setActiveTab, mobile = false }) => {
               )}
             </motion.div>
           ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (content.type === 'contact') {
+    // Simple contact form that opens a mailto link. Safe-guarded for SSR.
+    const [name, setName] = useState('');
+    const [emailField, setEmailField] = useState('');
+    const [message, setMessage] = useState('');
+
+    const sendMail = () => {
+      const to = content.email || 'vjeai.tech@gmail.com';
+      const subject = encodeURIComponent(name ? `Contact from ${name}` : 'Website contact');
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${emailField}\n\n${message}`);
+      const mailto = `mailto:${to}?subject=${subject}&body=${body}`;
+      if (typeof window !== 'undefined') window.location.href = mailto;
+    };
+
+    return (
+      <div className="space-y-4">
+        <p className={`${mobile ? 'text-gray-700' : 'text-white/90'} text-base`}>Have a project or question? Send us a message.</p>
+        <div className="grid grid-cols-1 gap-3">
+          <input value={name} onChange={(e)=>setName(e.target.value)} placeholder="Your name" className="w-full p-3 rounded-xl border" />
+          <input value={emailField} onChange={(e)=>setEmailField(e.target.value)} placeholder="Your email" className="w-full p-3 rounded-xl border" />
+          <textarea value={message} onChange={(e)=>setMessage(e.target.value)} placeholder="How can we help?" className="w-full p-3 rounded-xl border h-40" />
+        </div>
+        <div className="flex items-center gap-3">
+          <button onClick={sendMail} className="px-5 py-3 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold">Send</button>
+          <a href={`mailto:${content.email || 'vjeai.tech@gmail.com'}`} className="text-sm text-white/80 underline">Or email: {content.email || 'vjeai.tech@gmail.com'}</a>
         </div>
       </div>
     );

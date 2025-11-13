@@ -1162,7 +1162,7 @@ const SlideContent = ({ content, color, setActiveTab, mobile = false }) => {
 
   if (content.type === 'level') {
     return (
-      <div className="space-y-4 md:space-y-6">
+      <div className={`space-y-4 md:space-y-6 ${mobile ? 'pt-3' : ''}`}>
         <p className={`text-sm md:text-base leading-relaxed ${mobileStyles.text}`}>
           {content.description}
         </p>
@@ -1187,10 +1187,10 @@ const SlideContent = ({ content, color, setActiveTab, mobile = false }) => {
             <Cpu className="w-4 h-4 sm:w-5 sm:h-5" />
             How It Works
           </h3>
-          <div className="space-y-2">
+          <div className="space-y-2 mt-3">
             {content.architecture.map((step, index) => (
-              <div key={index} className={`flex items-start gap-2 sm:gap-3 ${mobileStyles.card} px-3 py-2.5 rounded-xl border ${mobile ? 'shadow-sm' : ''}`}>
-                <div className={`flex-shrink-0 w-6 h-6 rounded-full bg-gradient-to-r ${color} flex items-center justify-center text-white text-xs font-bold`}>
+              <div key={index} className={`flex items-start gap-2 sm:gap-3 ${mobileStyles.card} px-3 py-2.5 rounded-xl border ${mobile ? 'shadow-sm' : ''} relative z-0`}>
+                <div className={`flex-shrink-0 w-6 h-6 rounded-full bg-gradient-to-r ${color} flex items-center justify-center text-white text-xs font-bold relative z-10`}>
                   {index + 1}
                 </div>
                 <div className="flex-1 min-w-0">

@@ -36,6 +36,39 @@ const AgenticJourney = ({ setActiveTab }) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentSlide]);
 
+  // Read banner height CSS variable so we can hide the mobile header when banner is visible
+  const [bannerH, setBannerH] = useState(() => {
+    try {
+      if (typeof window === 'undefined' || typeof getComputedStyle !== 'function') return '0px';
+      return getComputedStyle(document.documentElement).getPropertyValue('--banner-h') || '0px';
+    } catch {
+      return '0px';
+    }
+  });
+
+  useEffect(() => {
+    const update = () => {
+      try {
+        if (typeof window === 'undefined' || typeof getComputedStyle !== 'function') {
+          setBannerH('0px');
+          return;
+        }
+        const val = getComputedStyle(document.documentElement).getPropertyValue('--banner-h') || '0px';
+        setBannerH(val.trim());
+      } catch {
+        setBannerH('0px');
+      }
+    };
+
+    update();
+    window.addEventListener('resize', update);
+    window.addEventListener('orientationchange', update);
+    return () => {
+      window.removeEventListener('resize', update);
+      window.removeEventListener('orientationchange', update);
+    };
+  }, []);
+
   const slides = [
     {
       level: "Welcome",
@@ -819,7 +852,8 @@ Memory stored for future trips:
       <ContactBanner />
       
       {/* Mobile App-like Header (Fixed) */}
-  <div className="md:hidden fixed left-0 right-0 z-40 px-4 py-2" style={{ top: 'calc(var(--banner-h, 0px) + 8px)' }}>
+  {bannerH === '0px' && (
+    <div className="md:hidden fixed left-0 right-0 z-40 px-4 py-2" style={{ top: 'calc(var(--banner-h, 0px) + 8px)' }}>
         <div className="flex items-center justify-between bg-white/6 backdrop-blur-md rounded-2xl px-3 py-2 shadow-sm">
           <button
             onClick={() => setActiveTab('api')}
@@ -847,6 +881,7 @@ Memory stored for future trips:
           />
         </div>
       </div>
+  )}
 
       {/* Desktop Header */}
       <div className="hidden md:block max-w-6xl mx-auto mb-8">

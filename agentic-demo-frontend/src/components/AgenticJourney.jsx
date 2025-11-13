@@ -12,6 +12,7 @@ import {
   Code,
   Database,
   Cpu,
+  Mail,
   GitBranch,
   Users,
   Play,

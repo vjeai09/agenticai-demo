@@ -47,11 +47,11 @@ export default function ContactBanner() {
     >
       {/* Desktop / large tablet banner (rich) */}
       <div className="hidden sm:block bg-gradient-to-r from-indigo-600 to-pink-500">
-        <div className="max-w-7xl mx-auto px-4 py-2">
-          <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 bg-white/10 rounded-md flex items-center justify-center">
-                <Sparkles className="w-4.5 h-4.5 text-white" />
+        <div className="max-w-7xl mx-auto px-4 py-1">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-white/10 rounded-md flex items-center justify-center">
+                <Sparkles className="w-4 h-4 text-white" />
               </div>
               <div>
                 <div className="text-sm font-extrabold text-white uppercase tracking-wider">Production-Ready AI Solutions</div>

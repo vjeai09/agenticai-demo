@@ -915,8 +915,8 @@ Memory stored for future trips:
                 initial={{ opacity: 1 }}
                 animate={{ opacity: 0 }}
                 transition={{ duration: 0.12 }}
-                className="absolute inset-0 z-10 bg-white touch-pan-y select-none overflow-hidden"
-                style={{ willChange: 'opacity', transform: 'translateZ(0)', WebkitTransform: 'translateZ(0)' }}
+                className="absolute left-0 right-0 bottom-0 z-10 bg-white touch-pan-y select-none overflow-hidden"
+                style={{ top: 'var(--banner-h, 0px)', willChange: 'opacity', transform: 'translateZ(0)', WebkitTransform: 'translateZ(0)' }}
               >
                 <div className={`bg-gradient-to-r ${slides[prevSlideIndex].color} px-5 py-6 rounded-t-[2rem]`}>
                   <div className="text-xs font-bold text-white/80 uppercase tracking-wider mb-1">
@@ -943,8 +943,8 @@ Memory stored for future trips:
               transition={{ duration: 0.12 }}
               onAnimationStart={() => { /* short crossfade start */ }}
               onAnimationComplete={() => { setPrevSlideIndex(null); setIsAnimating(false); }}
-              className="absolute inset-0 z-20 bg-white touch-pan-y select-none overflow-hidden"
-              style={{ willChange: 'opacity', transform: 'translateZ(0)', WebkitTransform: 'translateZ(0)' }}
+              className="absolute left-0 right-0 bottom-0 z-20 bg-white touch-pan-y select-none overflow-hidden"
+              style={{ top: 'var(--banner-h, 0px)', willChange: 'opacity', transform: 'translateZ(0)', WebkitTransform: 'translateZ(0)' }}
             >
               <div className={`bg-gradient-to-r ${currentSlideData.color} px-5 py-6 rounded-t-[2rem]`}>
                 <div className="text-xs font-bold text-white/80 uppercase tracking-wider mb-1">

@@ -18,7 +18,7 @@ export default function ContactBanner() {
           </div>
           <div className="flex items-center gap-3">
             <p className="text-xs md:text-sm">
-              Get curated Data Science & AI solutions for your business
+               vjeai.tech@gmail.com
             </p>
             <a
               href="mailto:vjeai.tech@gmail.com"

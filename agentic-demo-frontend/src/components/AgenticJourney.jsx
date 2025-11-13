@@ -1310,39 +1310,34 @@ const SlideContent = ({ content, color, setActiveTab, mobile = false }) => {
               key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className={`p-2 sm:p-5 rounded-2xl border-2 ${
-                demo.available
-                  ? mobile 
-                    ? 'bg-gradient-to-br from-purple-100 to-pink-100 border-purple-400 active:scale-95 shadow-lg'
-                    : 'bg-gradient-to-br from-purple-500/20 to-pink-500/20 border-purple-400 hover:border-purple-300 cursor-pointer active:scale-95 transition-transform'
-                  : mobile
-                    ? 'bg-gray-100 border-gray-300'
-                    : 'bg-white/5 border-white/10'
-              }`}
+              transition={{ delay: index * 0.06 }}
+              className={`rounded-2xl border-2 overflow-hidden shadow-sm ${demo.available ? (mobile ? 'border-purple-300' : 'border-purple-400') : 'border-gray-200'}`}
             >
-              <div className={`text-xs sm:text-sm font-semibold ${mobile ? 'text-purple-700' : 'text-purple-300'} mb-2`}>
-                {demo.level}
+              <div className={`${demo.available ? 'bg-gradient-to-r from-purple-600 to-pink-500 text-white' : mobile ? 'bg-gray-100 text-gray-700' : 'bg-white/5 text-white/70'} px-4 py-3 flex items-center justify-between gap-3` } style={{ borderTopLeftRadius: '0.75rem', borderTopRightRadius: '0.75rem' }}>
+                <div className={`text-xs font-semibold ${mobile ? (demo.available ? 'text-white' : 'text-gray-700') : (demo.available ? 'text-white' : 'text-purple-300')}`}>{demo.level}</div>
+                <div className={`text-xs ${mobile ? (demo.available ? 'text-white/90' : 'text-gray-600') : (demo.available ? 'text-white/90' : 'text-purple-200')}`}>{/* spacer to keep geometric balance */}</div>
               </div>
-              <h3 className={`text-base sm:text-xl font-bold ${mobileStyles.heading} mb-2`}>
-                {demo.title}
-              </h3>
-              <p className={`${mobile ? 'text-gray-600 text-xs' : 'text-white/70'} mb-2 sm:mb-4 text-xs sm:text-base`}>
-                {demo.description}
-              </p>
-              {demo.available ? (
-                <button 
-                  onClick={() => setActiveTab(demo.link)}
-                  className={`w-full py-2 px-3 ${mobile ? 'bg-gradient-to-r from-purple-600 to-pink-600 shadow-md' : 'bg-gradient-to-r from-purple-500 to-pink-500'} text-white font-bold rounded-xl active:scale-95 transition-all text-xs sm:text-sm flex items-center justify-center gap-2`}
-                >
-                  <Play className="w-4 h-4" />
-                  Try Now
-                </button>
-              ) : (
-                <div className={`w-full py-2.5 px-4 ${mobile ? 'bg-gray-300 text-gray-600' : 'bg-white/10 text-white/50'} font-semibold rounded-xl text-center text-sm`}>
-                  Coming Soon
+
+              <div className={`flex flex-col p-4 ${mobile ? 'bg-white' : 'bg-transparent' } h-full`}>
+                <div>
+                  <h3 className={`text-sm sm:text-lg font-bold ${mobileStyles.heading} mb-2`}>{demo.title}</h3>
+                  <p className={`${mobile ? 'text-gray-600 text-xs' : 'text-white/70'} mb-3 text-xs sm:text-sm`}>{demo.description}</p>
                 </div>
-              )}
+
+                <div className="mt-auto">
+                  {demo.available ? (
+                    <button
+                      onClick={() => setActiveTab(demo.link)}
+                      className={`w-full py-2 px-3 ${mobile ? 'bg-gradient-to-r from-purple-600 to-pink-600 shadow-md' : 'bg-gradient-to-r from-purple-500 to-pink-500'} text-white font-bold rounded-xl active:scale-95 transition-all text-xs sm:text-sm flex items-center justify-center gap-2`}
+                    >
+                      <Play className="w-4 h-4" />
+                      Try Now
+                    </button>
+                  ) : (
+                    <div className={`w-full py-2.5 px-4 ${mobile ? 'bg-gray-300 text-gray-600' : 'bg-white/10 text-white/50'} font-semibold rounded-xl text-center text-sm`}>Coming Soon</div>
+                  )}
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>

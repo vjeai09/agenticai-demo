@@ -13,8 +13,12 @@ export default function ContactBanner() {
     const setBannerVar = () => {
       const el = bannerRef.current;
       if (!el || typeof window === 'undefined') return;
-      const h = dismissed ? 0 : el.offsetHeight;
-      document.documentElement.style.setProperty('--banner-h', `${h}px`);
+      const compute = () => {
+        const h = dismissed ? 0 : el.offsetHeight;
+        document.documentElement.style.setProperty('--banner-h', `${h}px`);
+      };
+      if (typeof requestAnimationFrame !== 'undefined') requestAnimationFrame(compute);
+      else setTimeout(compute, 0);
     };
 
     setBannerVar();
@@ -43,11 +47,11 @@ export default function ContactBanner() {
     >
       {/* Desktop / large tablet banner (rich) */}
       <div className="hidden sm:block bg-gradient-to-r from-indigo-600 to-pink-500">
-        <div className="max-w-7xl mx-auto px-4 py-3">
+        <div className="max-w-7xl mx-auto px-4 py-2">
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-white/10 rounded-md flex items-center justify-center">
-                <Sparkles className="w-5 h-5 text-white" />
+              <div className="w-9 h-9 bg-white/10 rounded-md flex items-center justify-center">
+                <Sparkles className="w-4.5 h-4.5 text-white" />
               </div>
               <div>
                 <div className="text-sm font-extrabold text-white uppercase tracking-wider">Production-Ready AI Solutions</div>

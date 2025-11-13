@@ -1259,7 +1259,7 @@ const SlideContent = ({ content, color, setActiveTab, mobile = false }) => {
         <p className={`text-base md:text-lg ${mobileStyles.text} text-center mb-4 sm:mb-6`}>
           Ready to see these concepts in action? Try our interactive demos!
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4">
+  <div className="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4">
           {content.demos.map((demo, index) => (
             <motion.div
               key={index}

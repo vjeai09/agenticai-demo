@@ -757,17 +757,7 @@ Memory stored for future trips:
     }
     ,
     // Success slide shown after successful contact submission
-    {
-      level: "Thanks",
-      title: "Message sent",
-      subtitle: "We'll reply shortly",
-      icon: Users,
-      color: "from-emerald-500 to-green-500",
-      content: {
-        type: 'success',
-        message: "Thanks for reaching out — we'll get back to you soon."
-      }
-    }
+    
   ];
 
   const currentSlideData = slides[currentSlide];
@@ -902,7 +892,7 @@ Memory stored for future trips:
                   </p>
                 </div>
                 <div className="px-5 py-6 bg-white text-gray-900 overflow-y-auto" style={{ maxHeight: 'calc(100vh - var(--banner-h, 0px) - var(--bottom-nav-h, 0px) - 12rem)' }}>
-                  <SlideContent content={slides[prevSlideIndex].content} color={slides[prevSlideIndex].color} setActiveTab={setActiveTab} mobile={true} onSuccess={() => goToSlide(slides.length - 1)} />
+                  <SlideContent content={slides[prevSlideIndex].content} color={slides[prevSlideIndex].color} setActiveTab={setActiveTab} mobile={true} />
                 </div>
               </motion.div>
             )}
@@ -931,7 +921,7 @@ Memory stored for future trips:
               </div>
 
               <div className="px-5 py-6 bg-white text-gray-900 overflow-y-auto" style={{ maxHeight: 'calc(100vh - var(--banner-h, 0px) - var(--bottom-nav-h, 0px) - 12rem)' }}>
-                <SlideContent content={currentSlideData.content} color={currentSlideData.color} setActiveTab={setActiveTab} mobile={true} onSuccess={() => goToSlide(slides.length - 1)} />
+                <SlideContent content={currentSlideData.content} color={currentSlideData.color} setActiveTab={setActiveTab} mobile={true} />
               </div>
             </motion.div>
           </div>
@@ -958,7 +948,7 @@ Memory stored for future trips:
               </div>
 
               {/* Desktop Slide Content */}
-              <SlideContent content={currentSlideData.content} color={currentSlideData.color} setActiveTab={setActiveTab} mobile={false} onSuccess={() => goToSlide(slides.length - 1)} />
+              <SlideContent content={currentSlideData.content} color={currentSlideData.color} setActiveTab={setActiveTab} mobile={false} />
           </motion.div>
 
           {/* Desktop Navigation */}

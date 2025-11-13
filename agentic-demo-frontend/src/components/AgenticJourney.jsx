@@ -1093,8 +1093,8 @@ Memory stored for future trips:
             else if (typeof window !== 'undefined') window.location.href = 'mailto:vjeai.tech@gmail.com';
           }}
           onMouseEnter={() => setFabMounted(true)}
-          className={`fixed z-60 right-4 md:right-8 bottom-[calc(var(--bottom-nav-h,0px)+1rem)] md:bottom-8 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full p-3 shadow-lg flex items-center justify-center active:scale-95 transition-transform ${fabMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
-          style={{ transition: 'transform 260ms cubic-bezier(.2,.9,.3,1), opacity 220ms ease' }}
+          className={`fixed right-4 md:right-8 bottom-[calc(var(--bottom-nav-h,0px)+1rem)] md:bottom-8 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full p-3 shadow-lg flex items-center justify-center active:scale-95 transition-transform ${fabMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
+          style={{ transition: 'transform 260ms cubic-bezier(.2,.9,.3,1), opacity 220ms ease', zIndex: 9999 }}
         >
           <Mail className="w-5 h-5" />
         </button>

@@ -1385,9 +1385,27 @@ const SlideContent = ({ content, color, setActiveTab, mobile = false }) => {
         ) : null}
 
         <form onSubmit={submitForm} className="grid grid-cols-1 gap-3">
-          <input value={name} onChange={(e)=>setName(e.target.value)} placeholder="Your name" name="name" className="w-full p-3 rounded-xl border" />
-          <input value={emailField} onChange={(e)=>setEmailField(e.target.value)} placeholder="Your email" name="email" className="w-full p-3 rounded-xl border" />
-          <textarea value={message} onChange={(e)=>setMessage(e.target.value)} placeholder="How can we help?" name="message" className="w-full p-3 rounded-xl border h-40" />
+          <input
+            value={name}
+            onChange={(e)=>setName(e.target.value)}
+            placeholder="Your name"
+            name="name"
+            className={`w-full p-3 rounded-xl border transition-colors ${mobile ? 'text-gray-900 placeholder-gray-500 bg-white border-gray-200 focus:ring-2 focus:ring-purple-300' : 'text-white placeholder-white/60 bg-white/5 border-white/10 focus:ring-2 focus:ring-purple-600'}`}
+          />
+          <input
+            value={emailField}
+            onChange={(e)=>setEmailField(e.target.value)}
+            placeholder="Your email"
+            name="email"
+            className={`w-full p-3 rounded-xl border transition-colors ${mobile ? 'text-gray-900 placeholder-gray-500 bg-white border-gray-200 focus:ring-2 focus:ring-purple-300' : 'text-white placeholder-white/60 bg-white/5 border-white/10 focus:ring-2 focus:ring-purple-600'}`}
+          />
+          <textarea
+            value={message}
+            onChange={(e)=>setMessage(e.target.value)}
+            placeholder="How can we help?"
+            name="message"
+            className={`w-full p-3 rounded-xl border h-40 transition-colors ${mobile ? 'text-gray-900 placeholder-gray-500 bg-white border-gray-200 focus:ring-2 focus:ring-purple-300' : 'text-white placeholder-white/60 bg-white/5 border-white/10 focus:ring-2 focus:ring-purple-600'}`}
+          />
 
           {/* Honeypot field - visually hidden but present for bots */}
           <input name="_gotcha" type="text" autoComplete="off" tabIndex={-1} className="sr-only" />

@@ -748,22 +748,22 @@ Memory stored for future trips:
   const totalSlides = slides.length;
 
   const nextSlide = () => {
-    if (isAnimating) return;
+    // Immediate, no-motion navigation for premium minimal experience
     if (currentSlide < totalSlides - 1) {
-      setPrevSlideIndex(currentSlide);
       setSlideDir(1);
+      setPrevSlideIndex(null);
       setCurrentSlide(currentSlide + 1);
-      setIsAnimating(true);
+      setIsAnimating(false);
     }
   };
 
   const prevSlide = () => {
-    if (isAnimating) return;
+    // Immediate, no-motion navigation for premium minimal experience
     if (currentSlide > 0) {
-      setPrevSlideIndex(currentSlide);
       setSlideDir(-1);
+      setPrevSlideIndex(null);
       setCurrentSlide(currentSlide - 1);
-      setIsAnimating(true);
+      setIsAnimating(false);
     }
   };
 
@@ -797,12 +797,12 @@ Memory stored for future trips:
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 md:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 md:p-8" style={{ paddingTop: 'var(--banner-h, 0px)' }}>
       {/* Contact Banner */}
       <ContactBanner />
       
       {/* Mobile App-like Header (Fixed) */}
-      <div className="md:hidden fixed top-[40px] left-0 right-0 z-40 bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-4 shadow-xl">
+  <div className="md:hidden fixed left-0 right-0 z-40 bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-4 shadow-xl" style={{ top: 'calc(var(--banner-h, 0px) + 12px)' }}>
         <div className="flex items-center justify-between">
           <button
             onClick={() => setActiveTab('api')}
@@ -844,7 +844,7 @@ Memory stored for future trips:
 
       {/* Main Slide Area - Mobile App Style */}
       <div className="md:max-w-6xl md:mx-auto">
-        <div className="md:hidden pt-24 pb-24 px-0">
+  <div className="md:hidden pb-24 px-0" style={{ paddingTop: 'calc(var(--banner-h, 0px) + 12px)' }}>
           {/* Hybrid approach: render outgoing + incoming slides simultaneously to avoid any momentary empty frames */}
           <div
             className={`relative w-full bg-white rounded-t-[2rem] overflow-hidden shadow-2xl touch-pan-y select-none`}
@@ -859,8 +859,7 @@ Memory stored for future trips:
                 key={`prev-${prevSlideIndex}`}
                 initial={{ x: '0%', opacity: 1 }}
                 animate={{ x: slideDir === 1 ? '-100%' : '100%', opacity: 0.6 }}
-                transition={typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? { duration: 0 } : { type: 'spring', stiffness: 260, damping: 28 }}
-                onAnimationStart={() => setIsAnimating(true)}
+                transition={{ duration: 0 }}
                 className="absolute inset-0 z-10 bg-white touch-pan-y select-none overflow-hidden"
                 style={{ willChange: 'transform, opacity', transform: 'translateZ(0)', WebkitTransform: 'translateZ(0)' }}
               >
@@ -886,8 +885,8 @@ Memory stored for future trips:
               key={`cur-${currentSlide}`}
               initial={prevSlideIndex === null ? { x: '0%', opacity: 1 } : (slideDir === 1 ? { x: '100%', opacity: 0.6 } : { x: '-100%', opacity: 0.6 })}
               animate={{ x: '0%', opacity: 1 }}
-              transition={typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? { duration: 0 } : { type: 'spring', stiffness: 300, damping: 32 }}
-              onAnimationStart={() => setIsAnimating(true)}
+              transition={{ duration: 0 }}
+              onAnimationStart={() => { /* no-op: immediate transition for premium minimal experience */ }}
               onAnimationComplete={() => { setPrevSlideIndex(null); setIsAnimating(false); }}
               className="absolute inset-0 z-20 bg-white touch-pan-y select-none overflow-hidden"
               style={{ willChange: 'transform, opacity', transform: 'translateZ(0)', WebkitTransform: 'translateZ(0)' }}

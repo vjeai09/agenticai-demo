@@ -1,9 +1,29 @@
+import React from 'react'
 import { motion } from 'framer-motion'
 import { Mail, Sparkles } from 'lucide-react'
 
 export default function ContactBanner() {
+  const bannerRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const setBannerVar = () => {
+      const el = bannerRef.current;
+      if (!el || typeof window === 'undefined') return;
+      document.documentElement.style.setProperty('--banner-h', `${el.offsetHeight}px`);
+    };
+
+    setBannerVar();
+    window.addEventListener('resize', setBannerVar);
+    window.addEventListener('orientationchange', setBannerVar);
+    return () => {
+      window.removeEventListener('resize', setBannerVar);
+      window.removeEventListener('orientationchange', setBannerVar);
+    };
+  }, []);
+
   return (
     <motion.div
+      ref={bannerRef}
       initial={{ opacity: 0, y: -16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.28 }}

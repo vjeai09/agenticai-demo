@@ -35,23 +35,23 @@ const AgenticJourney = ({ setActiveTab }) => {
   const slides = [
     {
       level: "Welcome",
-      title: "The Journey to Agentic AI",
-      subtitle: "From Simple APIs to Intelligent Autonomous Agents",
+      title: "🚀 Start Your AI Journey!",
+      subtitle: "Build real AI, one step at a time.",
       icon: Brain,
       color: "from-purple-500 to-pink-500",
       content: {
         type: "intro",
-        description: "Discover how AI systems evolve from basic request-response patterns to intelligent, autonomous agents that can think, plan, and act independently.",
+        description: "👋 This is your playground. Imagine yourself building an AI that plans your dream trip—no experience needed, just curiosity! You’ll go from zero to real results, step by step. Tap next and see how easy it is!",
         keyPoints: [
-          "5 progressive levels of AI capability",
-          "One consistent use case: Travel Planning Assistant",
-          "Watch the same problem solved at each level",
-          "Understand how AI capabilities compound over time"
+          "✨ No experience needed—just curiosity!",
+          "🛠️ Build a real travel planner, not just code along",
+          "📈 Watch your AI level up with every slide",
+          "🔓 Unlock new powers as you go"
         ],
         useCase: {
-          title: "🌍 Our Journey: Building a Travel Planning Assistant",
-          description: "Throughout this tutorial, we'll build the same feature - helping users plan a trip to Tokyo - but watch how it evolves from simple data fetching to a fully autonomous AI assistant.",
-          scenario: "User Goal: 'I want to plan a 5-day trip to Tokyo in December'"
+          title: "🌍 Let’s Build: Your Travel AI Sidekick",
+          description: "Start simple. End up with an AI that plans your Tokyo trip. Ready to see the magic?",
+          scenario: "🎯 Goal: Plan a 5-day Tokyo adventure in December"
         }
       }
     },

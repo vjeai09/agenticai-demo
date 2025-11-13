@@ -1120,7 +1120,7 @@ Memory stored for future trips:
             else if (typeof window !== 'undefined') window.location.href = 'mailto:vjeai.tech@gmail.com';
           }}
           onMouseEnter={() => setFabMounted(true)}
-          className={`fixed right-4 md:right-8 bottom-[calc(var(--bottom-nav-h,0px)+1rem)] md:bottom-8 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full p-3 shadow-lg flex items-center justify-center active:scale-95 transition-transform ${fabMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
+          className={`fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:right-8 md:bottom-8 md:left-auto md:top-auto md:translate-x-0 md:translate-y-0 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full p-3 shadow-lg flex items-center justify-center active:scale-95 transition-transform ${fabMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
           style={{ transition: 'transform 260ms cubic-bezier(.2,.9,.3,1), opacity 220ms ease', zIndex: 9999 }}
         >
           <Mail className="w-5 h-5" />

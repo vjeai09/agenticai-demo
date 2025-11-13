@@ -49,7 +49,6 @@ export default function ContactBanner() {
             </div>
             <div>
               <div className="text-sm font-extrabold text-white uppercase tracking-wider">Production-Ready AI Solutions</div>
-              <div className="text-xs text-white/90">Get curated Data Science & AI solutions for your business</div>
             </div>
           </div>
 

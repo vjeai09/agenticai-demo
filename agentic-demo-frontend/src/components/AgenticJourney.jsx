@@ -877,6 +877,33 @@ Memory stored for future trips:
   // Helper to navigate to a given slide index (passed into SlideContent)
   const goToSlide = (idx) => setCurrentSlide(idx);
 
+  // Keep a ref to the mobile bottom nav so we can measure its height and expose
+  // it as a CSS variable (--bottom-nav-h). This prevents the FAB from overlapping
+  // the nav when shown on small screens.
+  const bottomNavRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const update = () => {
+      try {
+        if (typeof window === 'undefined') return;
+        const el = bottomNavRef.current;
+        const h = el ? el.offsetHeight : 0;
+        // add a small safety gap (8px) to avoid accidental overlap
+        document.documentElement.style.setProperty('--bottom-nav-h', `${h + 8}px`);
+      } catch {
+        document.documentElement.style.setProperty('--bottom-nav-h', '0px');
+      }
+    };
+
+    update();
+    window.addEventListener('resize', update);
+    window.addEventListener('orientationchange', update);
+    return () => {
+      window.removeEventListener('resize', update);
+      window.removeEventListener('orientationchange', update);
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 md:p-8" style={{ paddingTop: 'var(--banner-h, 0px)' }}>
       {/* Contact Banner */}

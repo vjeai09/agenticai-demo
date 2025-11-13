@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from 'framer-motion';
 import { 
   ChevronLeft, 
@@ -796,6 +796,37 @@ Memory stored for future trips:
   const currentSlideData = slides[currentSlide];
   const totalSlides = slides.length;
 
+  // index of the Contact slide (used by the persistent floating CTA)
+  const contactSlideIndex = slides.findIndex(s => s && s.content && s.content.type === 'contact');
+  const [fabMounted, setFabMounted] = React.useState(false);
+
+  // keyboard shortcut: press 'c' to go to contact (unless typing in an input)
+  React.useEffect(() => {
+    const onKey = (e) => {
+      if (e.key && e.key.toLowerCase() === 'c') {
+        const active = document.activeElement;
+        const tag = active && active.tagName && active.tagName.toLowerCase();
+        const isTyping = tag === 'input' || tag === 'textarea' || active?.isContentEditable;
+        if (!isTyping && contactSlideIndex >= 0) {
+          e.preventDefault();
+          goToSlide(contactSlideIndex);
+        } else if (!isTyping && contactSlideIndex < 0) {
+          // fallback: open mailto
+          if (typeof window !== 'undefined') window.location.href = 'mailto:vjeai.tech@gmail.com';
+        }
+      }
+    };
+
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [contactSlideIndex]);
+
+  // mount the FAB with a tiny delay so the entrance animation runs after first paint
+  React.useEffect(() => {
+    const t = setTimeout(() => setFabMounted(true), 180);
+    return () => clearTimeout(t);
+  }, []);
+
   const nextSlide = () => {
     // Immediate, no-motion navigation for premium minimal experience
     if (currentSlide < totalSlides - 1) {
@@ -1051,6 +1082,23 @@ Memory stored for future trips:
           </button>
         </div>
       </div>
+
+      {/* Persistent floating Contact FAB — hidden when Contact slide is active */}
+      {typeof contactSlideIndex === 'number' && contactSlideIndex >= 0 && currentSlide !== contactSlideIndex && (
+        <button
+          aria-label="Contact us"
+          title="Contact"
+          onClick={() => {
+            if (contactSlideIndex >= 0) goToSlide(contactSlideIndex);
+            else if (typeof window !== 'undefined') window.location.href = 'mailto:vjeai.tech@gmail.com';
+          }}
+          onMouseEnter={() => setFabMounted(true)}
+          className={`fixed z-60 right-4 md:right-8 bottom-[calc(var(--bottom-nav-h,0px)+1rem)] md:bottom-8 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full p-3 shadow-lg flex items-center justify-center active:scale-95 transition-transform ${fabMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
+          style={{ transition: 'transform 260ms cubic-bezier(.2,.9,.3,1), opacity 220ms ease' }}
+        >
+          <Mail className="w-5 h-5" />
+        </button>
+      )}
     </div>
   );
 };

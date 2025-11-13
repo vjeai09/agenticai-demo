@@ -755,6 +755,19 @@ Memory stored for future trips:
         email: 'vjeai.tech@gmail.com'
       }
     }
+    ,
+    // Success slide shown after successful contact submission
+    {
+      level: "Thanks",
+      title: "Message sent",
+      subtitle: "We'll reply shortly",
+      icon: Users,
+      color: "from-emerald-500 to-green-500",
+      content: {
+        type: 'success',
+        message: "Thanks for reaching out — we'll get back to you soon."
+      }
+    }
   ];
 
   const currentSlideData = slides[currentSlide];
@@ -780,9 +793,7 @@ Memory stored for future trips:
     }
   };
 
-  const goToSlide = (index) => {
-    setCurrentSlide(index);
-  };
+  
 
   // Touch event handlers for swipe gestures
   const onTouchStart = (e) => {
@@ -808,6 +819,9 @@ Memory stored for future trips:
       prevSlide();
     }
   };
+
+  // Helper to navigate to a given slide index (passed into SlideContent)
+  const goToSlide = (idx) => setCurrentSlide(idx);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 md:p-8" style={{ paddingTop: 'var(--banner-h, 0px)' }}>
@@ -888,7 +902,7 @@ Memory stored for future trips:
                   </p>
                 </div>
                 <div className="px-5 py-6 bg-white text-gray-900 overflow-y-auto" style={{ maxHeight: 'calc(100vh - var(--banner-h, 0px) - var(--bottom-nav-h, 0px) - 12rem)' }}>
-                  <SlideContent content={slides[prevSlideIndex].content} color={slides[prevSlideIndex].color} setActiveTab={setActiveTab} mobile={true} />
+                  <SlideContent content={slides[prevSlideIndex].content} color={slides[prevSlideIndex].color} setActiveTab={setActiveTab} mobile={true} onSuccess={() => goToSlide(slides.length - 1)} />
                 </div>
               </motion.div>
             )}
@@ -917,7 +931,7 @@ Memory stored for future trips:
               </div>
 
               <div className="px-5 py-6 bg-white text-gray-900 overflow-y-auto" style={{ maxHeight: 'calc(100vh - var(--banner-h, 0px) - var(--bottom-nav-h, 0px) - 12rem)' }}>
-                <SlideContent content={currentSlideData.content} color={currentSlideData.color} setActiveTab={setActiveTab} mobile={true} />
+                <SlideContent content={currentSlideData.content} color={currentSlideData.color} setActiveTab={setActiveTab} mobile={true} onSuccess={() => goToSlide(slides.length - 1)} />
               </div>
             </motion.div>
           </div>
@@ -944,7 +958,7 @@ Memory stored for future trips:
               </div>
 
               {/* Desktop Slide Content */}
-              <SlideContent content={currentSlideData.content} color={currentSlideData.color} setActiveTab={setActiveTab} mobile={false} />
+              <SlideContent content={currentSlideData.content} color={currentSlideData.color} setActiveTab={setActiveTab} mobile={false} onSuccess={() => goToSlide(slides.length - 1)} />
           </motion.div>
 
           {/* Desktop Navigation */}
@@ -1295,30 +1309,111 @@ const SlideContent = ({ content, color, setActiveTab, mobile = false }) => {
   }
 
   if (content.type === 'contact') {
-    // Simple contact form that opens a mailto link. Safe-guarded for SSR.
+    // Contact form: prefer Formspree when configured, otherwise fallback to mailto.
+    // Provide client-side submit with success/error UI. Safe for SSR.
     const [name, setName] = useState('');
     const [emailField, setEmailField] = useState('');
     const [message, setMessage] = useState('');
+    const [submitting, setSubmitting] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState('');
 
-    const sendMail = () => {
-      const to = content.email || 'vjeai.tech@gmail.com';
-      const subject = encodeURIComponent(name ? `Contact from ${name}` : 'Website contact');
-      const body = encodeURIComponent(`Name: ${name}\nEmail: ${emailField}\n\n${message}`);
-      const mailto = `mailto:${to}?subject=${subject}&body=${body}`;
-      if (typeof window !== 'undefined') window.location.href = mailto;
+  // Try to read a Formspree endpoint from environment (popular names supported).
+  // If none is configured, default to the user's provided Formspree endpoint.
+  const FORM_ENDPOINT = (typeof process !== 'undefined' && (process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT || process.env.REACT_APP_FORMSPREE_ENDPOINT)) || 'https://formspree.io/f/mrbrbbqb';
+
+    const submitForm = async (e) => {
+      if (e && e.preventDefault) e.preventDefault();
+      setError('');
+
+      // If no FORM_ENDPOINT is configured, fallback to mailto behavior.
+      // Honeypot check (simple anti-bot)
+      if (typeof window !== 'undefined') {
+        const gotcha = document.querySelector('input[name="_gotcha"]')?.value || '';
+        if (gotcha) {
+          setError('Spam detected');
+          return;
+        }
+      }
+
+      if (!FORM_ENDPOINT) {
+        const to = content.email || 'vjeai.tech@gmail.com';
+        const subject = encodeURIComponent(name ? `Contact from ${name}` : 'Website contact');
+        const body = encodeURIComponent(`Name: ${name}\nEmail: ${emailField}\n\n${message}`);
+        const mailto = `mailto:${to}?subject=${subject}&body=${body}`;
+        if (typeof window !== 'undefined') window.location.href = mailto;
+        return;
+      }
+
+      setSubmitting(true);
+      try {
+        // Post as form-encoded data (classic Formspree flow). Include honeypot field name "_gotcha".
+        const params = new URLSearchParams();
+        params.append('name', name || '');
+        params.append('email', emailField || '');
+        params.append('message', message || '');
+        params.append('_gotcha', typeof window !== 'undefined' ? (document.querySelector('input[name="_gotcha"]')?.value || '') : '');
+
+        const res = await fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: params.toString()
+        });
+
+        if (res.ok) {
+          setSuccess(true);
+          setName(''); setEmailField(''); setMessage('');
+          // navigate to success slide if provided
+          if (typeof onSuccess === 'function') onSuccess();
+        } else {
+          const json = await res.json().catch(() => null);
+          const text = json?.error || JSON.stringify(json) || await res.text();
+          setError(`Submission failed (${res.status}): ${String(text).substring(0, 200)}`);
+        }
+      } catch (err) {
+        setError(err.message || 'Network error');
+      } finally {
+        setSubmitting(false);
+      }
     };
 
     return (
       <div className="space-y-4">
         <p className={`${mobile ? 'text-gray-700' : 'text-white/90'} text-base`}>Have a project or question? Send us a message.</p>
-        <div className="grid grid-cols-1 gap-3">
-          <input value={name} onChange={(e)=>setName(e.target.value)} placeholder="Your name" className="w-full p-3 rounded-xl border" />
-          <input value={emailField} onChange={(e)=>setEmailField(e.target.value)} placeholder="Your email" className="w-full p-3 rounded-xl border" />
-          <textarea value={message} onChange={(e)=>setMessage(e.target.value)} placeholder="How can we help?" className="w-full p-3 rounded-xl border h-40" />
-        </div>
-        <div className="flex items-center gap-3">
-          <button onClick={sendMail} className="px-5 py-3 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold">Send</button>
-          <a href={`mailto:${content.email || 'vjeai.tech@gmail.com'}`} className="text-sm text-white/80 underline">Or email: {content.email || 'vjeai.tech@gmail.com'}</a>
+
+        {success ? (
+          <div role="status" className="p-4 rounded-lg bg-green-50 border border-green-200 text-green-800">
+            Thanks — your message was sent. We'll get back to you soon.
+          </div>
+        ) : null}
+
+        {error ? (
+          <div role="alert" className="p-3 rounded-lg bg-red-50 border border-red-200 text-red-800">{error}</div>
+        ) : null}
+
+        <form onSubmit={submitForm} className="grid grid-cols-1 gap-3">
+          <input value={name} onChange={(e)=>setName(e.target.value)} placeholder="Your name" name="name" className="w-full p-3 rounded-xl border" />
+          <input value={emailField} onChange={(e)=>setEmailField(e.target.value)} placeholder="Your email" name="email" className="w-full p-3 rounded-xl border" />
+          <textarea value={message} onChange={(e)=>setMessage(e.target.value)} placeholder="How can we help?" name="message" className="w-full p-3 rounded-xl border h-40" />
+
+          {/* Honeypot field - visually hidden but present for bots */}
+          <input name="_gotcha" type="text" autoComplete="off" tabIndex={-1} className="sr-only" />
+
+          <div className="flex items-center gap-3">
+            <button type="submit" disabled={submitting} className="px-5 py-3 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold">
+              {submitting ? 'Sending...' : 'Send'}
+            </button>
+
+            <a href={`mailto:${content.email || 'vjeai.tech@gmail.com'}`} className="text-sm text-white/80 underline">Or email: {content.email || 'vjeai.tech@gmail.com'}</a>
+          </div>
+        </form>
+
+        {/* Hidden accessibility region for live feedback */}
+        <div aria-live="polite" className="sr-only">
+          {submitting ? 'Sending message' : success ? 'Message sent' : error ? `Error: ${error}` : ''}
         </div>
       </div>
     );

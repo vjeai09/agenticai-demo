@@ -844,14 +844,14 @@ Memory stored for future trips:
 
       {/* Main Slide Area - Mobile App Style */}
       <div className="md:max-w-6xl md:mx-auto">
-  <div className="md:hidden pb-24 px-0" style={{ paddingTop: 'calc(var(--banner-h, 0px) + 12px)' }}>
+  <div className="md:hidden pb-24 px-0">
           {/* Hybrid approach: render outgoing + incoming slides simultaneously to avoid any momentary empty frames */}
           <div
             className={`relative w-full bg-white rounded-t-[2rem] overflow-hidden shadow-2xl touch-pan-y select-none`}
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
-            style={{ minHeight: 'calc(100vh - 12rem)' }}
+            style={{ minHeight: 'calc(100vh - var(--banner-h, 0px) - var(--bottom-nav-h, 0px) - 6rem)' }}
           >
             {/* Previous slide (animates out) */}
             {prevSlideIndex !== null && slides[prevSlideIndex] && (
@@ -874,7 +874,7 @@ Memory stored for future trips:
                     {slides[prevSlideIndex].subtitle}
                   </p>
                 </div>
-                <div className="px-5 py-6 bg-white text-gray-900 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 20rem)' }}>
+                <div className="px-5 py-6 bg-white text-gray-900 overflow-y-auto" style={{ maxHeight: 'calc(100vh - var(--banner-h, 0px) - var(--bottom-nav-h, 0px) - 12rem)' }}>
                   <SlideContent content={slides[prevSlideIndex].content} color={slides[prevSlideIndex].color} setActiveTab={setActiveTab} mobile={true} />
                 </div>
               </motion.div>
@@ -903,24 +903,15 @@ Memory stored for future trips:
                 </p>
               </div>
 
-              <div className="px-5 py-6 bg-white text-gray-900 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 20rem)' }}>
+              <div className="px-5 py-6 bg-white text-gray-900 overflow-y-auto" style={{ maxHeight: 'calc(100vh - var(--banner-h, 0px) - var(--bottom-nav-h, 0px) - 12rem)' }}>
                 <SlideContent content={currentSlideData.content} color={currentSlideData.color} setActiveTab={setActiveTab} mobile={true} />
               </div>
             </motion.div>
           </div>
         </div>
-
-        {/* Desktop View (unchanged) */}
+        {/* Desktop View (instant, minimal) */}
         <div className="hidden md:block">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentSlide}
-              initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -100 }}
-              transition={{ duration: 0.3 }}
-              className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 lg:p-12 border border-white/20 shadow-2xl"
-            >
+          <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 lg:p-12 border border-white/20 shadow-2xl" key={currentSlide}>
               {/* Desktop Slide Header */}
               <div className="flex items-center gap-4 mb-8">
                 <div className={`p-4 rounded-2xl bg-gradient-to-r ${currentSlideData.color} flex-shrink-0`}>
@@ -941,8 +932,8 @@ Memory stored for future trips:
 
               {/* Desktop Slide Content */}
               <SlideContent content={currentSlideData.content} color={currentSlideData.color} setActiveTab={setActiveTab} mobile={false} />
-            </motion.div>
-          </AnimatePresence>
+            </div>
+          </div>
 
           {/* Desktop Navigation */}
           <div className="mt-8 flex items-center justify-between gap-4">

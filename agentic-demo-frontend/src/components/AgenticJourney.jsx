@@ -1259,14 +1259,14 @@ const SlideContent = ({ content, color, setActiveTab, mobile = false }) => {
         <p className={`text-base md:text-lg ${mobileStyles.text} text-center mb-4 sm:mb-6`}>
           Ready to see these concepts in action? Try our interactive demos!
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4">
           {content.demos.map((demo, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className={`p-4 sm:p-5 rounded-2xl border-2 ${
+              className={`p-2 sm:p-5 rounded-2xl border-2 ${
                 demo.available
                   ? mobile 
                     ? 'bg-gradient-to-br from-purple-100 to-pink-100 border-purple-400 active:scale-95 shadow-lg'
@@ -1279,16 +1279,16 @@ const SlideContent = ({ content, color, setActiveTab, mobile = false }) => {
               <div className={`text-xs sm:text-sm font-semibold ${mobile ? 'text-purple-700' : 'text-purple-300'} mb-2`}>
                 {demo.level}
               </div>
-              <h3 className={`text-lg sm:text-xl font-bold ${mobileStyles.heading} mb-2`}>
+              <h3 className={`text-base sm:text-xl font-bold ${mobileStyles.heading} mb-2`}>
                 {demo.title}
               </h3>
-              <p className={`${mobile ? 'text-gray-600' : 'text-white/70'} mb-3 sm:mb-4 text-sm sm:text-base`}>
+              <p className={`${mobile ? 'text-gray-600 text-xs' : 'text-white/70'} mb-2 sm:mb-4 text-xs sm:text-base`}>
                 {demo.description}
               </p>
               {demo.available ? (
                 <button 
                   onClick={() => setActiveTab(demo.link)}
-                  className={`w-full py-2.5 px-4 ${mobile ? 'bg-gradient-to-r from-purple-600 to-pink-600 shadow-md' : 'bg-gradient-to-r from-purple-500 to-pink-500'} text-white font-bold rounded-xl active:scale-95 transition-all text-sm flex items-center justify-center gap-2`}
+                  className={`w-full py-2 px-3 ${mobile ? 'bg-gradient-to-r from-purple-600 to-pink-600 shadow-md' : 'bg-gradient-to-r from-purple-500 to-pink-500'} text-white font-bold rounded-xl active:scale-95 transition-all text-xs sm:text-sm flex items-center justify-center gap-2`}
                 >
                   <Play className="w-4 h-4" />
                   Try Now

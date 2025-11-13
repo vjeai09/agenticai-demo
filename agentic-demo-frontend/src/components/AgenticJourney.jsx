@@ -1304,21 +1304,33 @@ const SlideContent = ({ content, color, setActiveTab, mobile = false }) => {
   if (content.type === 'cta') {
     return (
       <div className="space-y-3 sm:space-y-6">
-        <div className="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4">
+        <div className="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4 items-stretch">
           {content.demos.map((demo, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.06 }}
-              className={`rounded-2xl border-2 overflow-hidden shadow-sm ${demo.available ? (mobile ? 'border-purple-300' : 'border-purple-400') : 'border-gray-200'}`}
+              className={`rounded-2xl border-2 overflow-hidden shadow-sm h-full flex flex-col ${demo.available ? (mobile ? 'border-purple-300' : 'border-purple-400') : 'border-gray-200'}`}
             >
-              <div className={`${demo.available ? 'bg-gradient-to-r from-purple-600 to-pink-500 text-white' : mobile ? 'bg-gray-100 text-gray-700' : 'bg-white/5 text-white/70'} px-4 py-3 flex items-center justify-between gap-3` } style={{ borderTopLeftRadius: '0.75rem', borderTopRightRadius: '0.75rem' }}>
-                <div className={`text-xs font-semibold ${mobile ? (demo.available ? 'text-white' : 'text-gray-700') : (demo.available ? 'text-white' : 'text-purple-300')}`}>{demo.level}</div>
-                <div className={`text-xs ${mobile ? (demo.available ? 'text-white/90' : 'text-gray-600') : (demo.available ? 'text-white/90' : 'text-purple-200')}`}>{/* spacer to keep geometric balance */}</div>
-              </div>
+              {/* header strip uses demo-specific gradient when available */}
+              {(() => {
+                const headerMap = {
+                  api: 'from-blue-500 to-cyan-500',
+                  rag: 'from-orange-500 to-red-500',
+                  mcp: 'from-violet-500 to-purple-500'
+                };
+                const gradient = demo.available ? (headerMap[demo.link] || 'from-purple-600 to-pink-500') : null;
+                const headerClass = gradient ? `bg-gradient-to-r ${gradient} text-white` : (mobile ? 'bg-gray-100 text-gray-700' : 'bg-white/5 text-white/70');
+                return (
+                  <div className={`${headerClass} px-4 py-3 flex items-center justify-between gap-3`} style={{ borderTopLeftRadius: '0.75rem', borderTopRightRadius: '0.75rem' }}>
+                    <div className={`text-xs font-semibold ${mobile ? (demo.available ? 'text-white' : 'text-gray-700') : (demo.available ? 'text-white' : 'text-purple-300')}`}>{demo.level}</div>
+                    <div className={`text-xs ${mobile ? (demo.available ? 'text-white/90' : 'text-gray-600') : (demo.available ? 'text-white/90' : 'text-purple-200')}`}>{/* spacer */}</div>
+                  </div>
+                );
+              })()}
 
-              <div className={`flex flex-col p-4 ${mobile ? 'bg-white' : 'bg-transparent' } h-full`}>
+              <div className={`flex flex-col p-4 ${mobile ? 'bg-white' : 'bg-transparent' } flex-1`}>
                 <div>
                   <h3 className={`text-sm sm:text-lg font-bold ${mobileStyles.heading} mb-2`}>{demo.title}</h3>
                   <p className={`${mobile ? 'text-gray-600 text-xs' : 'text-white/70'} mb-3 text-xs sm:text-sm`}>{demo.description}</p>

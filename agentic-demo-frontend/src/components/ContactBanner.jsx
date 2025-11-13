@@ -1,15 +1,20 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { X } from 'lucide-react'
 import { Mail, Sparkles } from 'lucide-react'
 
 export default function ContactBanner() {
   const bannerRef = React.useRef(null);
+  const [dismissed, setDismissed] = React.useState(()=>{
+    try { return typeof window !== 'undefined' && window.localStorage && window.localStorage.getItem('bannerDismissed') === '1'; } catch { return false }
+  });
 
   React.useEffect(() => {
     const setBannerVar = () => {
       const el = bannerRef.current;
       if (!el || typeof window === 'undefined') return;
-      document.documentElement.style.setProperty('--banner-h', `${el.offsetHeight}px`);
+      const h = dismissed ? 0 : el.offsetHeight;
+      document.documentElement.style.setProperty('--banner-h', `${h}px`);
     };
 
     setBannerVar();
@@ -19,12 +24,19 @@ export default function ContactBanner() {
       window.removeEventListener('resize', setBannerVar);
       window.removeEventListener('orientationchange', setBannerVar);
     };
-  }, []);
+  }, [dismissed]);
+
+  const close = () => {
+    try { window.localStorage.setItem('bannerDismissed','1'); } catch {}
+    setDismissed(true);
+  };
+
+  if (dismissed) return null;
 
   return (
     <motion.div
       ref={bannerRef}
-      initial={{ opacity: 0, y: -16 }}
+      initial={{ opacity: 0, y: -12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.28 }}
       className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-indigo-600 to-pink-500"
@@ -42,8 +54,15 @@ export default function ContactBanner() {
           </div>
 
           {/* Inline email only, no Contact button as requested */}
-          <div className="text-sm text-white/90 tabular-nums">
-            vjeai.tech@gmail.com
+          <div className="flex items-center gap-3">
+            <div className="text-sm text-white/90 tabular-nums">vjeai.tech@gmail.com</div>
+            <button onClick={close} aria-label="Dismiss banner" className="ml-2 p-2 rounded-md bg-white/10 hidden sm:inline-flex items-center justify-center">
+              <X className="w-4 h-4 text-white" />
+            </button>
+            {/* show a small dismiss on very small screens */}
+            <button onClick={close} aria-label="Dismiss banner" className="ml-2 p-2 rounded-md bg-white/10 inline-flex sm:hidden items-center justify-center">
+              <X className="w-4 h-4 text-white" />
+            </button>
           </div>
         </div>
       </div>

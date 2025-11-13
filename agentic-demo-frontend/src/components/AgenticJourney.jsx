@@ -751,9 +751,9 @@ Memory stored for future trips:
     // Immediate, no-motion navigation for premium minimal experience
     if (currentSlide < totalSlides - 1) {
       setSlideDir(1);
-      setPrevSlideIndex(null);
+      setPrevSlideIndex(currentSlide);
       setCurrentSlide(currentSlide + 1);
-      setIsAnimating(false);
+      setIsAnimating(true);
     }
   };
 
@@ -761,9 +761,9 @@ Memory stored for future trips:
     // Immediate, no-motion navigation for premium minimal experience
     if (currentSlide > 0) {
       setSlideDir(-1);
-      setPrevSlideIndex(null);
+      setPrevSlideIndex(currentSlide);
       setCurrentSlide(currentSlide - 1);
-      setIsAnimating(false);
+      setIsAnimating(true);
     }
   };
 
@@ -857,11 +857,11 @@ Memory stored for future trips:
             {prevSlideIndex !== null && slides[prevSlideIndex] && (
               <motion.div
                 key={`prev-${prevSlideIndex}`}
-                initial={{ x: '0%', opacity: 1 }}
-                animate={{ x: slideDir === 1 ? '-100%' : '100%', opacity: 0.6 }}
-                transition={{ duration: 0 }}
+                initial={{ opacity: 1 }}
+                animate={{ opacity: 0 }}
+                transition={{ duration: 0.12 }}
                 className="absolute inset-0 z-10 bg-white touch-pan-y select-none overflow-hidden"
-                style={{ willChange: 'transform, opacity', transform: 'translateZ(0)', WebkitTransform: 'translateZ(0)' }}
+                style={{ willChange: 'opacity', transform: 'translateZ(0)', WebkitTransform: 'translateZ(0)' }}
               >
                 <div className={`bg-gradient-to-r ${slides[prevSlideIndex].color} px-5 py-6 rounded-t-[2rem]`}>
                   <div className="text-xs font-bold text-white/80 uppercase tracking-wider mb-1">
@@ -883,13 +883,13 @@ Memory stored for future trips:
             {/* Current slide (animates in) */}
             <motion.div
               key={`cur-${currentSlide}`}
-              initial={prevSlideIndex === null ? { x: '0%', opacity: 1 } : (slideDir === 1 ? { x: '100%', opacity: 0.6 } : { x: '-100%', opacity: 0.6 })}
-              animate={{ x: '0%', opacity: 1 }}
-              transition={{ duration: 0 }}
-              onAnimationStart={() => { /* no-op: immediate transition for premium minimal experience */ }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.12 }}
+              onAnimationStart={() => { /* short crossfade start */ }}
               onAnimationComplete={() => { setPrevSlideIndex(null); setIsAnimating(false); }}
               className="absolute inset-0 z-20 bg-white touch-pan-y select-none overflow-hidden"
-              style={{ willChange: 'transform, opacity', transform: 'translateZ(0)', WebkitTransform: 'translateZ(0)' }}
+              style={{ willChange: 'opacity', transform: 'translateZ(0)', WebkitTransform: 'translateZ(0)' }}
             >
               <div className={`bg-gradient-to-r ${currentSlideData.color} px-5 py-6 rounded-t-[2rem]`}>
                 <div className="text-xs font-bold text-white/80 uppercase tracking-wider mb-1">
@@ -909,9 +909,9 @@ Memory stored for future trips:
             </motion.div>
           </div>
         </div>
-        {/* Desktop View (instant, minimal) */}
+        {/* Desktop View (short crossfade) */}
         <div className="hidden md:block">
-          <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 lg:p-12 border border-white/20 shadow-2xl" key={currentSlide}>
+          <motion.div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 lg:p-12 border border-white/20 shadow-2xl" key={currentSlide} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.12 }}>
               {/* Desktop Slide Header */}
               <div className="flex items-center gap-4 mb-8">
                 <div className={`p-4 rounded-2xl bg-gradient-to-r ${currentSlideData.color} flex-shrink-0`}>
@@ -932,8 +932,7 @@ Memory stored for future trips:
 
               {/* Desktop Slide Content */}
               <SlideContent content={currentSlideData.content} color={currentSlideData.color} setActiveTab={setActiveTab} mobile={false} />
-            </div>
-          </div>
+          </motion.div>
 
           {/* Desktop Navigation */}
           <div className="mt-8 flex items-center justify-between gap-4">

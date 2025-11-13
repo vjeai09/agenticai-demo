@@ -1066,8 +1066,8 @@ Memory stored for future trips:
         </div>
       </div>
 
-      {/* Mobile Bottom Navigation */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-4 shadow-2xl z-50">
+  {/* Mobile Bottom Navigation */}
+  <div ref={bottomNavRef} className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-4 shadow-2xl z-50">
         <div className="flex items-center justify-between gap-3">
           <button
             onClick={prevSlide}

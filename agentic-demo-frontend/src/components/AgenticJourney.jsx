@@ -321,7 +321,7 @@ const response = await answerQuestion(
     },
     {
       level: "Level 4",
-      title: "MCP - Tool-Using AI",
+      title: "MCP Agents",
       subtitle: "AI That Chooses Its Own Tools",
       icon: Layers,
       color: "from-violet-500 to-purple-500",

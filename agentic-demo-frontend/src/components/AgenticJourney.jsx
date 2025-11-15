@@ -1082,17 +1082,34 @@ Memory stored for future trips:
             Back
           </button>
 
-          <div className="flex gap-1.5">
-            {slides.map((_, index) => (
-              <div
-                key={index}
-                className={`transition-all rounded-full ${
-                  index === currentSlide
-                    ? 'w-7 h-2 bg-gradient-to-r from-purple-500 to-pink-500'
-                    : 'w-2 h-2 bg-gray-300'
-                }`}
-              />
-            ))}
+          <div className="flex items-center gap-2">
+            <div className="flex gap-1.5">
+              {slides.map((_, index) => (
+                <div
+                  key={index}
+                  className={`transition-all rounded-full ${
+                    index === currentSlide
+                      ? 'w-7 h-2 bg-gradient-to-r from-purple-500 to-pink-500'
+                      : 'w-2 h-2 bg-gray-300'
+                  }`}
+                />
+              ))}
+            </div>
+
+            {/* Mobile inline Contact button between Prev and Next */}
+            {typeof contactSlideIndex === 'number' && contactSlideIndex >= 0 && currentSlide !== contactSlideIndex && (
+              <button
+                aria-label="Contact"
+                title="Contact"
+                onClick={() => {
+                  if (contactSlideIndex >= 0) goToSlide(contactSlideIndex);
+                  else if (typeof window !== 'undefined') window.location.href = 'mailto:vjeai.tech@gmail.com';
+                }}
+                className="ml-2 p-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-md flex items-center justify-center active:scale-95 transition-transform"
+              >
+                <Mail className="w-4 h-4" />
+              </button>
+            )}
           </div>
 
           <button
@@ -1110,22 +1127,24 @@ Memory stored for future trips:
         </div>
       </div>
 
-      {/* Persistent floating Contact FAB — hidden when Contact slide is active */}
-      {typeof contactSlideIndex === 'number' && contactSlideIndex >= 0 && currentSlide !== contactSlideIndex && (
-        <button
-          aria-label="Contact us"
-          title="Contact"
-          onClick={() => {
-            if (contactSlideIndex >= 0) goToSlide(contactSlideIndex);
-            else if (typeof window !== 'undefined') window.location.href = 'mailto:vjeai.tech@gmail.com';
-          }}
-          onMouseEnter={() => setFabMounted(true)}
-          className={`fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:right-8 md:bottom-8 md:left-auto md:top-auto md:translate-x-0 md:translate-y-0 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full p-3 shadow-lg flex items-center justify-center active:scale-95 transition-transform ${fabMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
-          style={{ transition: 'transform 260ms cubic-bezier(.2,.9,.3,1), opacity 220ms ease', zIndex: 9999 }}
-        >
-          <Mail className="w-5 h-5" />
-        </button>
-      )}
+      {/* Persistent floating Contact FAB for md+ only — hidden on mobile (we render an inline mobile button in the bottom nav) */}
+      <div className="hidden md:block">
+        {typeof contactSlideIndex === 'number' && contactSlideIndex >= 0 && currentSlide !== contactSlideIndex && (
+          <button
+            aria-label="Contact us"
+            title="Contact"
+            onClick={() => {
+              if (contactSlideIndex >= 0) goToSlide(contactSlideIndex);
+              else if (typeof window !== 'undefined') window.location.href = 'mailto:vjeai.tech@gmail.com';
+            }}
+            onMouseEnter={() => setFabMounted(true)}
+            className={`fixed right-4 md:right-8 bottom-[calc(var(--bottom-nav-h,0px)+1rem)] md:bottom-8 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full p-3 shadow-lg flex items-center justify-center active:scale-95 transition-transform ${fabMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
+            style={{ transition: 'transform 260ms cubic-bezier(.2,.9,.3,1), opacity 220ms ease', zIndex: 9999 }}
+          >
+            <Mail className="w-5 h-5" />
+          </button>
+        )}
+      </div>
     </div>
   );
 };
